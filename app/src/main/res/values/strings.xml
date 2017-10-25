@@ -41,6 +41,7 @@
 
 
     </string-array>
+    <string name="title_activity_alta_maestros">AltaMaestrosActivity</string>
 
 </resources>
 
