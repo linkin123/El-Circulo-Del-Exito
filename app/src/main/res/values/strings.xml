@@ -1,3 +1,46 @@
 <resources>
-    <string name="app_name">El Circulo Del Exito</string>
+    <string name="app_name">AdminCircleApp</string>
+    <string name="title_activity_alta_alumno">AltaAlumnoActivity</string>
+
+    <string-array name="horas">
+        <item>horas</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+
+    </string-array>
+
+    <string-array name="materia">
+        <item>Materia</item>
+        <item>Literatura</item>
+        <item>Historia Universal</item>
+        <item>Geografía</item>
+        <item>Español</item>
+        <item>Historia de México</item>
+        <item>Biología</item>
+        <item>Química</item>
+        <item>Matemáticas</item>
+        <item>Física</item>
+        <item>Comprensión Lectora</item>
+        <item>Historia Universal</item>
+        <item>TICS</item>
+        <item>Derecho</item>
+        <item>Economía</item>
+        <item>Administración</item>
+        <item>Inglés</item>
+        <item>Psicología</item>
+        <item>Estadistica</item>
+        <item>Pensamiento Analitico</item>
+
+
+    </string-array>
+
 </resources>
+
