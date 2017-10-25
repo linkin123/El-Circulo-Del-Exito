@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">AdminCircleApp</string>
     <string name="title_activity_alta_alumno">AltaAlumnoActivity</string>
+    <string name="inputAlumnoQr">Lectura QR</string>
+    <string name="reportealumnos">Reporte Alumno</string>
 
     <string-array name="horas">
         <item>horas</item>
