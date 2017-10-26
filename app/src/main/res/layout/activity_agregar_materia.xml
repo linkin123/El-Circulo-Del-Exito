@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/baseAplicacion"
+    tools:context="cinepoilisklic.com.ia.elcirculodelexito.AgregarMateria"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Spinner
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:id="@+id/spiner_materias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+        <Spinner
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:id="@+id/spiner_horas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </Spinner>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_margin="10dp"
+        android:background="@drawable/select_materia"
+        android:text="Aceptar"
+        android:id="@+id/aceptar_materia_horas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

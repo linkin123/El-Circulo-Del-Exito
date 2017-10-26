@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AdminCircleApp</string>
+    <string name="app_name">Gestor de asesorias</string>
     <string name="title_activity_alta_alumno">AltaAlumnoActivity</string>
     <string name="inputAlumnoQr">Lectura QR</string>
     <string name="reportealumnos">Reporte Alumno</string>

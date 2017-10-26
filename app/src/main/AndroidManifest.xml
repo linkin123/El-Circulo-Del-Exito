@@ -27,6 +27,10 @@
 
         <activity android:name=".AltaAlumnoActivity"></activity>
 
+        <activity android:name=".AgregarMateria"></activity>
+
+        <activity android:name=".GeneradorQR"></activity>
+
 
     </application>
 

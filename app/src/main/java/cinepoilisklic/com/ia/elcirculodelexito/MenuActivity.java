@@ -45,8 +45,13 @@ public class MenuActivity extends AppCompatActivity {
             switch (v.getId()){
 
                 case R.id.alta_alumno:
-                   Intent intent = new Intent(MenuActivity.this , AltaMaestrosActivity.class);
-                    startActivity(intent);
+                   Intent intent1 = new Intent(MenuActivity.this , AltaAlumnoActivity.class);
+                    startActivity(intent1);
+                    break;
+
+                case R.id.alta_maestro:
+                    Intent intent2 = new Intent(MenuActivity.this , AltaMaestrosActivity.class);
+                    startActivity(intent2);
                     break;
 
             }
