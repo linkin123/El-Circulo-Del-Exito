@@ -24,7 +24,8 @@
         <activity android:name=".AltaAlumnoActivity" />
         <activity android:name=".AgregarMateria" />
         <activity android:name=".GeneradorQR" />
-        <activity android:name=".ReporteAlumnosActivity"></activity>
+        <activity android:name=".ReporteAlumnosActivity" />
+        <activity android:name=".AgregarMateriasMaestros"></activity>
     </application>
 
 </manifest>

@@ -3,8 +3,9 @@
     <string name="title_activity_alta_alumno">AltaAlumnoActivity</string>
     <string name="inputAlumnoQr">Lectura QR</string>
     <string name="reportealumnos">Reporte Alumno</string>
-
     <string-array name="horas">
+
+
         <item>horas</item>
         <item>1</item>
         <item>2</item>
@@ -44,6 +45,12 @@
 
     </string-array>
     <string name="title_activity_alta_maestros">AltaMaestrosActivity</string>
+    <string-array name="nivel">
+        <item>Primaria</item>
+        <item>Secundaria</item>
+        <item>Prepa</item>
+        <item>Universidad</item>
+    </string-array>
 
 </resources>
 
