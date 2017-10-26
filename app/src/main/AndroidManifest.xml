@@ -16,22 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".AltaMaestrosActivity"
             android:label="@string/title_activity_alta_maestros"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-
-        <activity android:name=".AsesoriaPorPaqueteActivity"></activity>
-
-        <activity android:name=".AltaAlumnoActivity"></activity>
-
-        <activity android:name=".AgregarMateria"></activity>
-
-        <activity android:name=".GeneradorQR"></activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AsesoriaPorPaqueteActivity" />
+        <activity android:name=".AltaAlumnoActivity" />
+        <activity android:name=".AgregarMateria" />
+        <activity android:name=".GeneradorQR" />
+        <activity android:name=".ReporteAlumnosActivity"></activity>
     </application>
 
 </manifest>

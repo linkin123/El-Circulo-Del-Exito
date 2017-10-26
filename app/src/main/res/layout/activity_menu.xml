@@ -1,96 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-tools:context="cinepoilisklic.com.ia.elcirculodelexito.MenuActivity">
-
-
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:orientation="horizontal"
-    android:layout_weight="1"
-    >
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context="cinepoilisklic.com.ia.elcirculodelexito.MenuActivity">
 
-    <ImageButton
-        android:id="@+id/asesoria_tiempo"
-        android:background="#43bae7"
-        android:src="@drawable/reloj_icon_menos3"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        />
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/asesoria_paquete"
-        android:background="#e8f5fa"
-        android:src="@drawable/icono_paquetes3"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        <ImageButton
+            android:id="@+id/asesoria_tiempo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#43bae7"
+            android:src="@drawable/reloj_icon_menos3" />
+
+        <ImageButton
+            android:id="@+id/asesoria_paquete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#e8f5fa"
+            android:src="@drawable/icono_paquetes3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        />
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/alta_alumno"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#70b273"
+            android:src="@drawable/alumnosz40" />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:orientation="horizontal"
-    android:layout_weight="1"
-    >
+        <ImageButton
+            android:id="@+id/alta_maestro"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#85a7d0"
+            android:src="@drawable/professor_icon28" />
 
-    <ImageButton
-        android:id="@+id/alta_alumno"
-        android:background="#70b273"
-        android:src="@drawable/alumnosz40"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        />
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/alta_maestro"
-        android:background="#85a7d0"
-        android:src="@drawable/professor_icon28"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
-
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/reporte_alumno"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#d2d2a6"
+            android:src="@drawable/informe35" />
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:orientation="horizontal"
-    android:layout_weight="1"
-    >
+        <ImageButton
+            android:id="@+id/reporte_maestro"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#98ddd4"
+            android:src="@drawable/reportecompu35" />
 
-    <ImageButton
-        android:id="@+id/reporte_alumno"
-        android:background="#d2d2a6"
-        android:src="@drawable/informe35"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
-
-
-    <ImageButton
-        android:id="@+id/reporte_maestro"
-        android:background="#98ddd4"
-        android:src="@drawable/reportecompu35"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
-
-</LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
 

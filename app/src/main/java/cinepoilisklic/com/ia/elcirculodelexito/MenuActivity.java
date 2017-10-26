@@ -45,15 +45,19 @@ public class MenuActivity extends AppCompatActivity {
             switch (v.getId()){
 
                 case R.id.alta_alumno:
-                   Intent intent1 = new Intent(MenuActivity.this , AltaAlumnoActivity.class);
-                    startActivity(intent1);
+                   Intent intentAltaAlumno = new Intent(MenuActivity.this , AltaAlumnoActivity.class);
+                    startActivity(intentAltaAlumno);
                     break;
 
                 case R.id.alta_maestro:
-                    Intent intent2 = new Intent(MenuActivity.this , AltaMaestrosActivity.class);
-                    startActivity(intent2);
+                    Intent intentAltaMaestro = new Intent(MenuActivity.this , AltaMaestrosActivity.class);
+                    startActivity(intentAltaMaestro);
                     break;
 
+                case R.id.asesoria_paquete:
+                    Intent intentAsesoriaPaquete = new Intent(MenuActivity.this , AsesoriaPorPaqueteActivity.class);
+                    startActivity(intentAsesoriaPaquete);
+                    break;
             }
         }
     };
