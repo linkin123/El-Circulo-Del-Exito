@@ -58,9 +58,17 @@ public class MenuActivity extends AppCompatActivity {
                     Intent intentAsesoriaPaquete = new Intent(MenuActivity.this , AsesoriaPorPaqueteActivity.class);
                     startActivity(intentAsesoriaPaquete);
                     break;
+
                 case R.id.reporte_maestro:
                     Intent intentReporteMestro=new Intent(MenuActivity.this,ReporteMestroActivity.class);
                     startActivity(intentReporteMestro);
+                    break;
+
+
+
+                case R.id.reporte_alumno:
+                    Intent intentReporteAlumno = new Intent(MenuActivity.this , ReporteAlumnosActivity.class);
+                    startActivity(intentReporteAlumno);
                     break;
 
             }
