@@ -45,12 +45,22 @@
 
     </string-array>
     <string name="title_activity_alta_maestros">AltaMaestrosActivity</string>
+    <string name="buscar">buscar</string>
+    <string name="action_settings">Settings</string>
     <string-array name="nivel">
         <item>Primaria</item>
         <item>Secundaria</item>
         <item>Prepa</item>
         <item>Universidad</item>
     </string-array>
+
+    <string-array name="opcionesBuscador">
+        <item>Nombre</item>
+        <item>Id</item>
+        <item>Paquete</item>
+        <item>Horas</item>
+    </string-array>
+
 
 </resources>
 
