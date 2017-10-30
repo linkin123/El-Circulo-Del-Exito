@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cinepoilisklic.com.ia.elcirculodelexito">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,7 +30,8 @@
         <activity android:name=".AgregarMateria" />
         <activity android:name=".GeneradorQR" />
         <activity android:name=".ReporteAlumnosActivity" />
-        <activity android:name=".AgregarMateriasMaestros"></activity>
+        <activity android:name=".AgregarMateriasMaestros" />
+        <activity android:name=".ReporteMestroActivity"></activity>
     </application>
 
 </manifest>
