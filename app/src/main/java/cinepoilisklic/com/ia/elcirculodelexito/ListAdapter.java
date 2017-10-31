@@ -17,24 +17,24 @@ import java.util.ArrayList;
 /**
  * Created by andres on 04/10/15.
  */
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> implements Filterable {
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder> implements Filterable {
 
     private ArrayList<Alumno> persons;
     private ArrayList<Alumno> personsFilter;
     private CustomFilter mFilter;
+    private onItemClickListener mListener;
 
     Spinner spinnerBuscador;
 
-
     // Provee una referencia a cada item dentro de una vista y acceder a ellos facilmente
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
         // Cada uno de los elementos de mi vista
         public TextView nameAlumnoReporte, statusAlumnoReporte, idAlumnoReporte, horasAlumnoReporte;
         public CardView cardView;
         public Button btnStatus;
         public RelativeLayout parentBodyRl;
 
-        public ViewHolder(View v) {
+        public ItemViewHolder(View v) {
             super(v);
             parentBodyRl = (RelativeLayout) v.findViewById(R.id.parent_body_rl);
             cardView = (CardView) v.findViewById(R.id.card_view);
@@ -46,13 +46,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
         }
     }
 
+    public interface onItemClickListener{
+        void onItemClick(Alumno alumno);
+    }
+
     // Constructor
-    public ListAdapter(ArrayList<Alumno> persons) {
+    public ListAdapter(ArrayList<Alumno> persons , onItemClickListener listener) {
 
         this.persons = persons;
         this.personsFilter = new ArrayList<>();
         this.personsFilter.addAll(persons);
         this.mFilter = new CustomFilter(ListAdapter.this);
+        mListener = listener;
     }
 
     @Override
@@ -62,26 +67,32 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> im
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public ListAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // inflo la vista (vista padre)
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_adapter, parent, false);
         // creo el grupo de vistas
-        ViewHolder vh = new ViewHolder(v);
-
+        ItemViewHolder vh = new ItemViewHolder(v);
         return vh;
     }
 
-    // Reemplaza en contenido de la vista
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.nameAlumnoReporte.setText(personsFilter.get(position).getName());
-        viewHolder.statusAlumnoReporte.setText("Paquete : " + personsFilter.get(position).getStatus());
-        viewHolder.idAlumnoReporte.setText("id : " + String.valueOf(personsFilter.get(position).getId()));
-        viewHolder.horasAlumnoReporte.setText("horas : " + String.valueOf(personsFilter.get(position).getHoras()));
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
+        final Alumno alumno = persons.get(position);
+        holder.nameAlumnoReporte.setText(personsFilter.get(position).getName());
+        holder.statusAlumnoReporte.setText("Paquete : " + personsFilter.get(position).getStatus());
+        holder.idAlumnoReporte.setText("id : " + String.valueOf(personsFilter.get(position).getId()));
+        holder.horasAlumnoReporte.setText("horas : " + String.valueOf(personsFilter.get(position).getHoras()));
 
 //        personsFilter.get(position).getColor()
-        viewHolder.btnStatus.setBackgroundResource(personsFilter.get(position).getColor());
+        holder.btnStatus.setBackgroundResource(personsFilter.get(position).getColor());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onItemClick(alumno);
+
+            }
+        });
     }
 
     // Retorna el tamano de nuestra data

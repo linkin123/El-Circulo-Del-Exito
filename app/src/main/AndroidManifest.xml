@@ -31,7 +31,8 @@
         <activity android:name=".GeneradorQR" />
         <activity android:name=".ReporteAlumnosActivity" />
         <activity android:name=".AgregarMateriasMaestros" />
-        <activity android:name=".ReporteMestroActivity"></activity>
+        <activity android:name=".ReporteMestroActivity" />
+        <activity android:name=".AsesoriasAlumnoActivity"></activity>
     </application>
 
 </manifest>

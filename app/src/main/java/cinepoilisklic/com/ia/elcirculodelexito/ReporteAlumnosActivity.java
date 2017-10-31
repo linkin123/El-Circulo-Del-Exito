@@ -1,5 +1,6 @@
 package cinepoilisklic.com.ia.elcirculodelexito;
 
+import android.content.Intent;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,15 +13,18 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ReporteAlumnosActivity extends AppCompatActivity {
+public class ReporteAlumnosActivity extends AppCompatActivity implements ListAdapter.onItemClickListener{
 
 
     ArrayList<Alumno> persons;
     private EditText etSearchBox;
     private Spinner spinnerBuscador;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class ReporteAlumnosActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         audioRv.setLayoutManager(linearLayoutManager);
         populatePersons();
-        final ListAdapter listAdapter = new ListAdapter(persons);
+        final ListAdapter listAdapter = new ListAdapter(persons , this);
         audioRv.setAdapter(listAdapter);
 
         etSearchBox.addTextChangedListener(new TextWatcher() {
@@ -88,5 +92,13 @@ public class ReporteAlumnosActivity extends AppCompatActivity {
         persons.add(new Alumno("jose luis pavia romero","no ",112, 0 ,R.drawable.pegatina_circulo_rojo));
         persons.add(new Alumno("Dorian guzman hernandez","si ",223, 4, R.drawable.pegatina_circulo_verde));
         persons.add(new Alumno("Claudia soto garcia","si ", 345 , 8 ,R.drawable.pegatina_circulo_verde));
+    }
+
+    @Override
+    public void onItemClick(Alumno alumno) {
+        Toast.makeText(this, alumno.getName() , Toast.LENGTH_LONG).show();
+        Intent intentAlumno = new Intent(ReporteAlumnosActivity.this , AsesoriasAlumnoActivity.class);
+        intentAlumno.putExtra(AsesoriasAlumnoActivity.EXTRA_ID , alumno.getId());
+        startActivity(intentAlumno);
     }
 }
