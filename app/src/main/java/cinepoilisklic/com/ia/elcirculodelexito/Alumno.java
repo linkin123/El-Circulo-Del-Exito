@@ -10,13 +10,24 @@ public class Alumno {
     int id;
     int horas;
     int color;
+    String fechaFinPaquete;
 
-    public Alumno(String name, String status, int id, int horas, int color) {
+    public Alumno(String name, String status, int id, int horas, int color, String fechaFinPaquete) {
         this.name = name;
         this.status = status;
         this.id = id;
         this.horas = horas;
         this.color = color;
+        this.fechaFinPaquete = fechaFinPaquete;
+
+    }
+
+    public String getFechaFinPaquete() {
+        return fechaFinPaquete;
+    }
+
+    public void setFechaFinPaquete(String fechaFinPaquete) {
+        this.fechaFinPaquete = fechaFinPaquete;
     }
 
     public String getName() {

@@ -1,0 +1,157 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="2dp">
+
+        <RelativeLayout
+            android:id="@+id/parent_body_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#7b241c"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+            <LinearLayout
+                android:id="@+id/parent_body_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+
+                <LinearLayout
+                    android:id="@+id/division_imagenes_datos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <LinearLayout
+                        android:id="@+id/division_imagenes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        >
+
+                        <LinearLayout
+                            android:id="@+id/division_imagen_texto1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+
+                            <TextView
+                                android:id="@+id/texto_materia"
+                                android:text="Materia"
+                                android:textSize="20sp"
+                                android:textColor="#FFF"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:id="@+id/imagen_materia_reporte_asesoria_alumno"
+                                android:src="@drawable/estadistica"
+                                android:layout_width="120dp"
+                                android:layout_height="120dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:id="@+id/texto_maestro"
+                                android:text="Maestro"
+                                android:textSize="20sp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:textColor="#FFF"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:src="@drawable/professor_icon28"
+                                android:id="@+id/imagen_maestro_reporte_asesoria_alumno"
+                                android:layout_width="120dp"
+                                android:layout_height="120dp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:text="otro datos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:text="Maestro : jose luis"
+                            android:textColor="#FFF"
+                            android:textSize="20sp"
+                            android:layout_margin="5dp"
+                            android:id="@+id/nombre_maestro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Fecha : 04/08/2017"
+                            android:textColor="#FFF"
+                            android:textSize="20sp"
+                            android:layout_margin="5dp"
+                            android:id="@+id/fecha_asesoria"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Nivel : Preparatoria"
+                            android:textColor="#FFF"
+                            android:textSize="20sp"
+                            android:layout_margin="5dp"
+                            android:id="@+id/nivel_asesoria"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="tiempo de asesoria : 1hr, 23 min"
+                            android:textColor="#FFF"
+                            android:textSize="20sp"
+                            android:layout_margin="5dp"
+                            android:id="@+id/tiempo_duracion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="tiempo restante : 8 hr, 37 min"
+                            android:textColor="#FFF"
+                            android:textSize="20sp"
+                            android:layout_margin="5dp"
+                            android:id="@+id/tiempo_restante"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

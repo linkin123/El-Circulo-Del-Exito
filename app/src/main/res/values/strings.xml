@@ -61,6 +61,13 @@
         <item>Horas</item>
     </string-array>
 
+    <string-array name="opcionesBuscadorAsesorias">
+        <item>materia</item>
+        <item>maestro</item>
+        <item>fecha</item>
+        <item>nivel</item>
+    </string-array>
+
 
 </resources>
 

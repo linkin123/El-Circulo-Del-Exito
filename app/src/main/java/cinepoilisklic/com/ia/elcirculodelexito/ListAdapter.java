@@ -29,7 +29,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
     // Provee una referencia a cada item dentro de una vista y acceder a ellos facilmente
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         // Cada uno de los elementos de mi vista
-        public TextView nameAlumnoReporte, statusAlumnoReporte, idAlumnoReporte, horasAlumnoReporte;
+        public TextView nameAlumnoReporte, statusAlumnoReporte, idAlumnoReporte, horasAlumnoReporte, fechaFinPaqeute;
         public CardView cardView;
         public Button btnStatus;
         public RelativeLayout parentBodyRl;
@@ -43,6 +43,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
             idAlumnoReporte = (TextView)v.findViewById(R.id.id_alumno_reporte);
             horasAlumnoReporte = (TextView)v.findViewById(R.id.horas_alumno_reporte);
             btnStatus = (Button) v.findViewById(R.id.btn_status);
+            fechaFinPaqeute = (TextView)v.findViewById(R.id.fecha_fin_paquete);
         }
     }
 
@@ -83,6 +84,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ItemViewHolder
         holder.statusAlumnoReporte.setText("Paquete : " + personsFilter.get(position).getStatus());
         holder.idAlumnoReporte.setText("id : " + String.valueOf(personsFilter.get(position).getId()));
         holder.horasAlumnoReporte.setText("horas : " + String.valueOf(personsFilter.get(position).getHoras()));
+        holder.fechaFinPaqeute.setText("caducidad : " + personsFilter.get(position).getFechaFinPaquete());
 
 //        personsFilter.get(position).getColor()
         holder.btnStatus.setBackgroundResource(personsFilter.get(position).getColor());
