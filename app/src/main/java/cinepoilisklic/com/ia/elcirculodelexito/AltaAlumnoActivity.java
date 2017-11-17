@@ -1,5 +1,6 @@
 package cinepoilisklic.com.ia.elcirculodelexito;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
@@ -9,19 +10,31 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class AltaAlumnoActivity extends AppCompatActivity implements ListAdapterAlumnosConPaquete.onItemClickListener, MateriasAdapter.onItemClickListener {
+
+
+    Spinner spinnerMateria;
+    Spinner spinnerHoras;
+
 
     RecyclerView recyclerView;
     RecyclerView audioRv;
@@ -37,6 +50,7 @@ public class AltaAlumnoActivity extends AppCompatActivity implements ListAdapter
     private EditText etSearchBox;
     private Spinner spinnerBuscador;
 
+    List<Materia> listMaterias = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +71,16 @@ public class AltaAlumnoActivity extends AppCompatActivity implements ListAdapter
         recyclerView = (RecyclerView)findViewById(R.id.materias_recycler);
         initAdapter();
 
+        spinnerMateria = (Spinner)findViewById(R.id.spiner_materias);
+        spinnerHoras = (Spinner)findViewById(R.id.spiner_horas);
+        setdataSpinnersPaquete();
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         audioRv.setLayoutManager(linearLayoutManager);
+
         populatePersons();
+
         final ListAdapterAlumnosConPaquete listAdapterAlumnosConPaquete = new ListAdapterAlumnosConPaquete(persons , this);
         audioRv.setAdapter(listAdapterAlumnosConPaquete);
 
@@ -79,9 +99,34 @@ public class AltaAlumnoActivity extends AppCompatActivity implements ListAdapter
         });
 
     }
+    private void setdataSpinnersPaquete() {
+        spinnerMateria.setAdapter(getDataAdapterPaquete(R.array.materia));
+        spinnerHoras.setAdapter(getDataAdapterPaquete(R.array.horas));
+              hideKeyboard(spinnerMateria);
+              hideKeyboard(spinnerHoras);
+
+    }
+
+    private void hideKeyboard(Spinner spinner) {
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                return false;
+            }
+        });
+
+    }
+
+
+    private ArrayAdapter<CharSequence> getDataAdapterPaquete(@ArrayRes int array) {
+        return ArrayAdapter.createFromResource(this, array, R.layout.item_view_spiner);
+
+    }
 
     public void initAdapter(){
-        list = getList();
+        list = listMaterias;
         materiasAdapter = new MateriasAdapter(this, list , this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(materiasAdapter);
@@ -90,15 +135,16 @@ public class AltaAlumnoActivity extends AppCompatActivity implements ListAdapter
 
     private List<Materia> getList(){
         //creamos una lista llamada list de tipo <UserModel>
-        List<Materia> list = new ArrayList();
 
-        list.add(new Materia(R.drawable.matematicasx,"Matemáticas", 10, "10/agosto/2018"));
+
+//        list.add(new Materia(R.drawable.matematicasx,"Matemáticas", 10, "10/agosto/2018"));
+/*
         list.add(new Materia(R.drawable.ticsx,"Tics", 20, "20/Mayo/2018"));
         list.add(new Materia(R.drawable.comprension_lectora,"Comprensión lectora", 16, "01/Noviembre/2018"));
         list.add(new Materia(R.drawable.espaniolx,"Español", 10, "10/Septiembre/2018"));
         list.add(new Materia(R.drawable.geografiax,"Geografía", 20, "20/Mayo/2018"));
         list.add(new Materia(R.drawable.administracion,"Administración", 16, "01/Noviembre/2018"));
-
+*/
         return list;
 
     }
@@ -110,8 +156,7 @@ public class AltaAlumnoActivity extends AppCompatActivity implements ListAdapter
             switch (v.getId()){
 
                 case R.id.btn_agregar_materia:
-                    Intent intent = new Intent(AltaAlumnoActivity.this , AgregarMateria.class);
-                    startActivity(intent);
+                    addPaquete(spinnerMateria.getSelectedItem().toString() , spinnerHoras.getSelectedItem().toString());
                     break;
 
                 case R.id.btn_generar_qr:
@@ -121,6 +166,58 @@ public class AltaAlumnoActivity extends AppCompatActivity implements ListAdapter
             }
         }
     };
+
+    private void addPaquete(String Materia , String horas){
+        Log.d("TAG", "horas : "+ horas);
+        Log.d("TAG", "materia : "+ Materia);
+        Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
+        int monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
+        int month = calendarNow.get(Calendar.MONTH)+1;
+        int anio = calendarNow.get(Calendar.YEAR)+1;
+        String fecha = String.valueOf(monthDay + "/" + month + "/" +  anio);
+        listMaterias.add(new Materia(getImageMateria(Materia) , Materia, Integer.parseInt(horas),  fecha ));
+        materiasAdapter.notifyDataSetChanged();
+    }
+
+    private int getImageMateria(String Materia){
+        if(Materia.equals("Administración"))
+            return R.drawable.administracion;
+        if(Materia.equals("Biología"))
+            return  R.drawable.biologiax;
+        if(Materia.equals("Comprensión Lectora"))
+            return  R.drawable.comprension_lectora;
+        if(Materia.equals("Economía"))
+            return  R.drawable.economia;
+        if(Materia.equals("Español"))
+            return  R.drawable.espaniolx;
+        if(Materia.equals("Estadistica"))
+            return  R.drawable.estadistica;
+        if(Materia.equals("Física"))
+            return  R.drawable.fisica;
+        if(Materia.equals("Geografía"))
+            return  R.drawable.geografiax;
+        if(Materia.equals("Historia Universal"))
+            return  R.drawable.historia_universal;
+        if(Materia.equals("Historia de México"))
+            return  R.drawable.hitoriamexicox;
+        if(Materia.equals("Inglés"))
+            return  R.drawable.ingles;
+        if(Materia.equals("Literatura"))
+            return  R.drawable.literaturax;
+        if(Materia.equals("Matemáticas"))
+            return  R.drawable.matematicasx;
+        if(Materia.equals("Pensamiento Analítico"))
+            return  R.drawable.pensamiento_analitico;
+        if(Materia.equals("Psicología"))
+            return  R.drawable.psicologia;
+        if(Materia.equals("Química"))
+            return  R.drawable.quimicax;
+
+
+
+        return 0;
+    }
+
     private void setdataSpinners() {
         spinnerBuscador.setAdapter(getDataAdapter(R.array.opcionesBuscador));
 

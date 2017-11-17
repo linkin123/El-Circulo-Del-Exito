@@ -194,13 +194,42 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/btn_agregar_materia"
-            android:layout_margin="1dp"
-            android:background="@drawable/select_materia"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="agregar materia" />
+            android:orientation="horizontal"
+            >
+
+            <Spinner
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:id="@+id/spiner_materias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Spinner>
+
+            <Spinner
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:id="@+id/spiner_horas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </Spinner>
+
+            <Button
+                android:id="@+id/btn_agregar_materia"
+                android:layout_margin="2dp"
+                android:background="@drawable/select_materia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="agregar" />
+
+
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:background="@drawable/recycler"
