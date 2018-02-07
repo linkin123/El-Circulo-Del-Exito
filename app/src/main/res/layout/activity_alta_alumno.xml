@@ -5,339 +5,358 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/baseAplicacion"
+    android:baselineAligned="true"
     android:orientation="vertical"
-    tools:context="cinepoilisklic.com.ia.elcirculodelexito.AltaAlumnoActivity"
-    android:baselineAligned="true">
+    tools:context="cinepoilisklic.com.ia.elcirculodelexito.AltaAlumnoActivity">
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_weight="60"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre del Alumno : " />
-
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="nombre del padre o tutor : " />
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="60"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nombre del Alumno : " />
+
+                        <EditText
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="nombre del padre o tutor : " />
+
+                        <EditText
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="telefono del padre o tutor : " />
+
+                        <EditText
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="telefono del padre o tutor : " />
+                    android:gravity="center"
+                    android:text="Nivel" />
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="27dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbtn_primaria"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_rbtn_selector"
+                        android:button="@null"
+                        android:checked="true"
+                        android:fontFamily="bold"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="Primaria"
+                        android:textColor="@drawable/news_rbtn_textcolor_selector"
+                        android:textSize="13dp" />
+
+                    <RadioButton
+                        android:id="@+id/rbtn_secundaria"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_rbtn_selector_ni_centro"
+                        android:button="@null"
+                        android:fontFamily="bold"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="Secundaria"
+                        android:textColor="@drawable/news_rbtn_textcolor_selector"
+                        android:textSize="13dp" />
+
+                    <RadioButton
+                        android:id="@+id/rbtn_prepa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_rbtn_selector_ni_centro"
+                        android:button="@null"
+                        android:fontFamily="bold"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="Preparatoria"
+                        android:textColor="@drawable/news_rbtn_textcolor_selector"
+                        android:textSize="13dp" />
+
+                    <RadioButton
+                        android:id="@+id/rbtn_universidad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/news_rbtn_selector_ni"
+                        android:button="@null"
+                        android:fontFamily="bold"
+                        android:gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:text="Universidad"
+                        android:textColor="@drawable/news_rbtn_textcolor_selector"
+                        android:textSize="13dp" />
+
+                </RadioGroup>
+
             </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Nivel" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimaryDark" />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Primaria" />
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Secundaria" />
-
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Preparatoria" />
-
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Universidad" />
-
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="3"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="@string/inputAlumnoQr"
-                android:textSize="24sp"
-                android:textStyle="italic" />
-
-            <SurfaceView
-                android:id="@+id/camera_view"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true" />
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
-                <Spinner
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:id="@+id/spiner_materias"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </Spinner>
-
-                <Spinner
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_margin="2dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/spiner_horas"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spiner_materias"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="bold"
+                            android:layout_margin="2dp"
+                            android:layout_weight="1"></Spinner>
+
+                        <Spinner
+                            android:id="@+id/spiner_horas"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:layout_weight="1">
+
+
+                        </Spinner>
+
+                        <Button
+                            android:id="@+id/btn_agregar_materia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:background="@drawable/select_materia"
+                            android:text="agregar" />
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/materias_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="@drawable/recycler"
+                        android:orientation="horizontal">
+
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Costo total : " />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Registro de pago : " />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Diferencia : " />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinner_buscador"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
 
-                </Spinner>
+                    </Spinner>
+
+                    <EditText
+                        android:id="@+id/etSearchBox"
+                        style="@style/EditTextFind"
+                        android:layout_above="@+id/audio_rv"
+                        android:hint="@string/buscar" />
+
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/audio_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"
+                    app:layout_anchor="@id/etSearchBox"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_agregar_materia"
-                    android:layout_margin="2dp"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
                     android:background="@drawable/select_materia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="agregar" />
+                    android:text="registro de pagos"
 
+                    />
 
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:background="@drawable/recycler"
-                android:id="@+id/materias_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal">
-
-
-
-            </android.support.v7.widget.RecyclerView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Costo total : " />
-
-                <EditText
+                <Button
+                    android:id="@+id/btn_generar_qr"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Registro de pago : " />
+                    android:layout_margin="1dp"
+                    android:background="@drawable/select_materia"
+                    android:text="Registrar"
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+
+                    />
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Diferencia : " />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-
 
         </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:orientation="vertical"
-        android:layout_marginBottom="20dp"
-        >
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Spinner
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:id="@+id/spinner_buscador"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-
-            </Spinner>
-
-            <EditText
-                android:id="@+id/etSearchBox"
-                style="@style/EditTextFind"
-                android:layout_above="@+id/audio_rv"
-                android:hint="@string/buscar" />
-
-
-        </LinearLayout>
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/audio_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            app:layout_anchor="@id/etSearchBox"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:text="registro de pagos"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:background="@drawable/select_materia"
-
-            />
-        <Button
-            android:id="@+id/btn_generar_qr"
-            android:layout_margin="1dp"
-            android:background="@drawable/select_materia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrar"
-
-
-            />
-
-    </LinearLayout>
-
-
-
-
+    </ScrollView>
 
 </LinearLayout>
 
