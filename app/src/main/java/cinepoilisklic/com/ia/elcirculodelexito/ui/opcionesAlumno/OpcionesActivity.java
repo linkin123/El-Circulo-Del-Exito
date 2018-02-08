@@ -35,7 +35,7 @@ public class OpcionesActivity extends AppCompatActivity {
             switch (v.getId()){
 
                 case R.id.opciones_btn_registro:
-                    Intent intentAltaAlumno = new Intent(OpcionesActivity.this , AltaPaqueteActivity.class);
+                    Intent intentAltaAlumno = new Intent(OpcionesActivity.this , AltaAlumnActivity.class);
                     startActivity(intentAltaAlumno);
                     break;
 

@@ -7,8 +7,8 @@
     android:ellipsize="marquee"
     android:paddingBottom="8dp"
     android:paddingTop="4dp"
-    android:background="@color/colorAccent"
+    android:background="@color/news_white"
     android:textAlignment="inherit"
-    android:textColor="#ffffff"
+    android:textColor="@color/colorAccent"
     android:textSize="13sp">
 </TextView>
