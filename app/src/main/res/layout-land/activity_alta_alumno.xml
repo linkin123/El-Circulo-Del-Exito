@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:background="@color/baseAplicacion"
-    tools:context="cinepoilisklic.com.ia.elcirculodelexito.AltaAlumnoActivity"
+    tools:context=".ui.registroAlumno.AltaAlumnoActivity"
     >
 
     <LinearLayout

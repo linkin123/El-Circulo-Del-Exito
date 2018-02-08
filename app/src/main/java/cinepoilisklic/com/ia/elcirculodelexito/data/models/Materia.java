@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito;
+package cinepoilisklic.com.ia.elcirculodelexito.data.models;
 
 import android.media.Image;
 

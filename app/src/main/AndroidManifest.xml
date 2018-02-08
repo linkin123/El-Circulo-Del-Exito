@@ -14,25 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MenuActivity">
+        <activity android:name=".ui.menu.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AltaMaestrosActivity"
-            android:label="@string/title_activity_alta_maestros"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AsesoriaPorPaqueteActivity" />
-        <activity android:name=".AltaAlumnoActivity" />
-        <activity android:name=".AgregarMateria" />
-        <activity android:name=".GeneradorQR" />
-        <activity android:name=".ReporteAlumnosActivity" />
-        <activity android:name=".AgregarMateriasMaestros" />
-        <activity android:name=".ReporteMestroActivity" />
-        <activity android:name=".AsesoriasAlumnoActivity"></activity>
+        <activity android:name=".ui.registroAlumno.AltaAlumnoActivity" />
+        <activity android:name=".ui.listaAlumnos.ListaAlumnosActivity" />
+        <activity android:name=".ui.reporteAlumno.AsesoriasAlumnoActivity" />
+        <activity android:name=".ui.opcionesAlumno.OpcionesActivity" />
+        <activity android:name=".ui.altaPaquete.AltaPaqueteActivity" />
+        <activity android:name=".ui.registroAlumno.AltaAlumnActivity" />
+        <activity android:name=".ui.transicionAlumno.SeleccionaAlumnoActivity"></activity>
     </application>
 
 </manifest>

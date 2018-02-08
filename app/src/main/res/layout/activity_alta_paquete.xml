@@ -44,6 +44,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:gravity="center"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -53,39 +54,6 @@
                             android:layout_height="wrap_content"
                             android:text="Nombre del Alumno : " />
 
-                        <EditText
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="nombre del padre o tutor : " />
-
-                        <EditText
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="telefono del padre o tutor : " />
-
-                        <EditText
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -104,6 +72,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_margin="10dp"
                             android:background="@color/colorPrimaryDark" />
 
                         <LinearLayout
@@ -119,7 +88,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:layout_marginTop="30dp"
+                            android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -200,6 +169,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
                                 android:orientation="horizontal">
 
                                 <Spinner
@@ -222,21 +192,23 @@
 
                                 </Spinner>
 
-                                <Button
-                                    android:id="@+id/btn_agregar_materia"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="2dp"
-                                    android:background="@drawable/select_materia"
-                                    android:text="agregar" />
-
 
                             </LinearLayout>
+
+                            <Button
+                                android:id="@+id/btn_agregar_materia"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:textColor="@color/news_white"
+                                android:background="@drawable/btn"
+                                android:text="agregar" />
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/materias_recycler"
                                 android:layout_width="match_parent"
-                                android:layout_height="100dp"
+                                android:layout_height="150dp"
+                                android:layout_margin="10dp"
                                 android:background="@drawable/recycler"
                                 android:orientation="horizontal">
 
@@ -245,7 +217,44 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:layout_margin="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="paquete : " />
+
+                                <TextView
+                                    android:text="matematicas $400"
+                                    android:fontFamily="sans-serif-smallcaps"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:layout_margin="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="paquete : " />
+
+                                <TextView
+                                    android:text="Física : $400"
+                                    android:fontFamily="sans-serif-smallcaps"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="40dp"
+                                android:layout_margin="10dp"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -261,6 +270,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
+                                android:layout_margin="10dp"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -276,6 +286,7 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
+                                android:layout_margin="10dp"
                                 android:layout_height="40dp">
 
                                 <TextView
@@ -295,66 +306,22 @@
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="320dp"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="vertical">
 
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <Spinner
-                                android:id="@+id/spinner_buscador"
-                                style="@style/Widget.AppCompat.Spinner.Underlined"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-
-                            </Spinner>
-
-                            <EditText
-                                android:id="@+id/etSearchBox"
-                                style="@style/EditTextFind"
-                                android:layout_above="@+id/audio_rv"
-                                android:hint="@string/buscar" />
-
-
-                        </LinearLayout>
-
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/audio_rv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:scrollbars="vertical"
-                            app:layout_anchor="@id/etSearchBox"
-                            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         android:orientation="horizontal">
 
-                        <Button
-                            android:layout_width="160dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="1dp"
-                            android:background="@drawable/select_materia"
-                            android:text="registro de pagos"
-
-                            />
 
                         <Button
                             android:id="@+id/btn_generar_qr"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="1dp"
-                            android:background="@drawable/select_materia"
+                            android:textColor="@color/news_white"
+                            android:background="@drawable/btn"
                             android:text="Registrar"
 
 

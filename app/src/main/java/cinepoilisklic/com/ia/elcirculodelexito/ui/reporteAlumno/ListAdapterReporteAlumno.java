@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.reporteAlumno;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import cinepoilisklic.com.ia.elcirculodelexito.R;
+import cinepoilisklic.com.ia.elcirculodelexito.data.models.Asesoria;
 
 /**
  * Created by Dell on 02/11/2017.

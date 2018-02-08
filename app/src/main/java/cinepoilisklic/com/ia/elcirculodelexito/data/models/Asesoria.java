@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito;
+package cinepoilisklic.com.ia.elcirculodelexito.data.models;
 
 /**
  * Created by Dell on 03/11/2017.

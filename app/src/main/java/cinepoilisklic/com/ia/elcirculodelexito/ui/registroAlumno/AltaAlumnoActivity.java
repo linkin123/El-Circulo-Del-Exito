@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.registroAlumno;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,9 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,20 +17,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 
+import cinepoilisklic.com.ia.elcirculodelexito.data.models.Alumno;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.reporteAlumno.AsesoriasAlumnoActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.data.models.Materia;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.altaPaquete.MateriasAdapter;
+import cinepoilisklic.com.ia.elcirculodelexito.R;
+
 public class AltaAlumnoActivity extends AppCompatActivity implements
-        ListAdapterAlumnosConPaquete.onItemClickListener,
-        MateriasAdapter.onItemClickListener{
+        MateriasAdapter.onItemClickListener {
 
 
     Spinner spinnerMateria;
@@ -73,10 +73,10 @@ public class AltaAlumnoActivity extends AppCompatActivity implements
         btnGeneradorQR.setOnClickListener(onClickListener);
 
 
-        rbtnPrimaria = (RadioButton) findViewById(R.id.rbtn_primaria);
+/*        rbtnPrimaria = (RadioButton) findViewById(R.id.rbtn_primaria);
         rbtnSecundaria = (RadioButton) findViewById(R.id.rbtn_secundaria);
         rbtnPreparatoria = (RadioButton) findViewById(R.id.rbtn_prepa);
-        rbtnUniversidad = (RadioButton) findViewById(R.id.rbtn_universidad);
+        rbtnUniversidad = (RadioButton) findViewById(R.id.rbtn_universidad);*/
 
 
         audioRv = (RecyclerView) findViewById(R.id.audio_rv);
@@ -95,12 +95,12 @@ public class AltaAlumnoActivity extends AppCompatActivity implements
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         audioRv.setLayoutManager(linearLayoutManager);
 
-        populatePersons();
+        //populatePersons();
 
-        final ListAdapterAlumnosConPaquete listAdapterAlumnosConPaquete = new ListAdapterAlumnosConPaquete(persons, this);
-        audioRv.setAdapter(listAdapterAlumnosConPaquete);
+/*        final ListAdapterAlumnosConPaquete listAdapterAlumnosConPaquete = new ListAdapterAlumnosConPaquete(persons, this);
+        audioRv.setAdapter(listAdapterAlumnosConPaquete);*/
 
-        etSearchBox.addTextChangedListener(new TextWatcher() {
+/*        etSearchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -114,7 +114,7 @@ public class AltaAlumnoActivity extends AppCompatActivity implements
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
     }
 
@@ -176,11 +176,6 @@ public class AltaAlumnoActivity extends AppCompatActivity implements
 
                 case R.id.btn_agregar_materia:
                     addPaquete(spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
-                    break;
-
-                case R.id.btn_generar_qr:
-                    Intent intent2 = new Intent(AltaAlumnoActivity.this, GeneradorQR.class);
-                    startActivity(intent2);
                     break;
             }
         }
@@ -266,21 +261,21 @@ public class AltaAlumnoActivity extends AppCompatActivity implements
 
     public void populatePersons() {
         persons = new ArrayList<>();
-        persons.add(new Alumno("Karla Lopez Herrrera", "no ", 123, 0, R.drawable.pegatina_circulo_rojo, "15/08/2017"));
+/*        persons.add(new Alumno("Karla Lopez Herrrera", "no ", 123, 0, R.drawable.pegatina_circulo_rojo, "15/08/2017"));
         persons.add(new Alumno("Fernando juarez perez", "si ", 127, 6, R.drawable.pegatina_circulo_verde, "10/02/2018"));
         persons.add(new Alumno("isis gomez avila", "no ", 232, 0, R.drawable.pegatina_circulo_rojo, "02/04/2016"));
         persons.add(new Alumno("jose luis pavia romero", "no ", 112, 0, R.drawable.pegatina_circulo_rojo, "03/03/2016"));
         persons.add(new Alumno("Dorian guzman hernandez", "si ", 223, 4, R.drawable.pegatina_circulo_verde, "03/06/2018"));
-        persons.add(new Alumno("Claudia soto garcia", "si ", 345, 8, R.drawable.pegatina_circulo_verde, "05/"));
+        persons.add(new Alumno("Claudia soto garcia", "si ", 345, 8, R.drawable.pegatina_circulo_verde, "05/"));*/
     }
 
-    @Override
+/*    @Override
     public void onItemClick(Alumno alumno) {
         Toast.makeText(this, alumno.getName(), Toast.LENGTH_LONG).show();
         Intent intentAlumno = new Intent(AltaAlumnoActivity.this, AsesoriasAlumnoActivity.class);
         intentAlumno.putExtra(AsesoriasAlumnoActivity.EXTRA_ID, alumno.getId());
         startActivity(intentAlumno);
-    }
+    }*/
 
     @Override
     public void onItemClick(Materia mateia) {

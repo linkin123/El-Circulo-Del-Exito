@@ -1,6 +1,5 @@
-package cinepoilisklic.com.ia.elcirculodelexito;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.reporteAlumno;
 
-import android.content.Intent;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,14 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import cinepoilisklic.com.ia.elcirculodelexito.R;
+import cinepoilisklic.com.ia.elcirculodelexito.data.models.Asesoria;
 
 public class AsesoriasAlumnoActivity extends AppCompatActivity {
 

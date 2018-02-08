@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e7cf95"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.listaAlumnos.ListaAlumnosActivity">
+    android:orientation="vertical"
+    android:background="@color/baseAplicacion"
+    tools:context="cinepoilisklic.com.ia.elcirculodelexito.ui.transicionAlumno.SeleccionaAlumnoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,15 +21,6 @@
             android:layout_above="@+id/audio_rv"
             android:hint="@string/buscar" />
 
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:textColor="@color/news_white"
-            android:background="@drawable/btn"
-            android:text="registro de pagos"
-
             />
 
 
@@ -42,5 +33,4 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
-
+</LinearLayout>
