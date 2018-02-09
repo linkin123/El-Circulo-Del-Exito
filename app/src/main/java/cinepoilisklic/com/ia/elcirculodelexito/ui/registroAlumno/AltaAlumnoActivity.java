@@ -1,7 +1,6 @@
 package cinepoilisklic.com.ia.elcirculodelexito.ui.registroAlumno;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,7 +25,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Alumno;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.reporteAlumno.AsesoriasAlumnoActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Materia;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.altaPaquete.MateriasAdapter;
 import cinepoilisklic.com.ia.elcirculodelexito.R;
@@ -175,13 +172,13 @@ public class AltaAlumnoActivity extends AppCompatActivity implements
             switch (v.getId()) {
 
                 case R.id.btn_agregar_materia:
-                    addPaquete(spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
+                    addPaquete(spinnerMateria.getSelectedItemId() ,spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
                     break;
             }
         }
     };
 
-    private void addPaquete(String Materia, String horas) {
+    private void addPaquete(Long id , String Materia, String horas) {
         Log.d("TAG", "horas : " + horas);
         Log.d("TAG", "materia : " + Materia);
         Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
@@ -189,7 +186,7 @@ public class AltaAlumnoActivity extends AppCompatActivity implements
         int month = calendarNow.get(Calendar.MONTH) + 1;
         int anio = calendarNow.get(Calendar.YEAR) + 1;
         String fecha = String.valueOf(monthDay + "/" + month + "/" + anio);
-        listMaterias.add(new Materia(getImageMateria(Materia), Materia, Integer.parseInt(horas), fecha));
+        listMaterias.add(new Materia(id, getImageMateria(Materia), Materia, Integer.parseInt(horas), fecha));
         materiasAdapter.notifyDataSetChanged();
     }
 

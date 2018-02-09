@@ -102,7 +102,7 @@ public class SeleccionaAlumnoActivity extends AppCompatActivity implements Alumn
     @Override
     public void onItemClick(Alumno alumno) {
         Intent intentAlumno = new Intent(cinepoilisklic.com.ia.elcirculodelexito.ui.transicionAlumno.SeleccionaAlumnoActivity.this, AltaPaqueteActivity.class);
-        intentAlumno.putExtra(AsesoriasAlumnoActivity.EXTRA_ID, alumno.getId());
+        intentAlumno.putExtra(AltaPaqueteActivity.EXTRA_ID, alumno.getId());
         startActivity(intentAlumno);
     }
 }

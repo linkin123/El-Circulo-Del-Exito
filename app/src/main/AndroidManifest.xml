@@ -27,7 +27,8 @@
         <activity android:name=".ui.opcionesAlumno.OpcionesActivity" />
         <activity android:name=".ui.altaPaquete.AltaPaqueteActivity" />
         <activity android:name=".ui.registroAlumno.AltaAlumnActivity" />
-        <activity android:name=".ui.transicionAlumno.SeleccionaAlumnoActivity"></activity>
+        <activity android:name=".ui.transicionAlumno.SeleccionaAlumnoActivity" />
+        <activity android:name=".ui.listaMaestros.ListaMaestrosActivity"></activity>
     </application>
 
 </manifest>

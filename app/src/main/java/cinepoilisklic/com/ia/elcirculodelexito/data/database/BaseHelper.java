@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BaseHelper  extends SQLiteOpenHelper{
 
+    String tablaAlumnos= "CREATE TABLE ALUMNOS(ID INTEGER  PRIMARY KEY, NOMBRE TEXT, NOMBREPADRE TEXT , TELEFONO TEXT)";
     String tabla= "CREATE TABLE ALUMNOS(ID INTEGER  PRIMARY KEY, NOMBRE TEXT, NOMBREPADRE TEXT , TELEFONO TEXT)";
 
     public BaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -18,13 +19,13 @@ public class BaseHelper  extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(tabla);
+        db.execSQL(tablaAlumnos);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table alumnos");
-        db.execSQL( tabla );
+        db.execSQL( tablaAlumnos );
     }
 
 }

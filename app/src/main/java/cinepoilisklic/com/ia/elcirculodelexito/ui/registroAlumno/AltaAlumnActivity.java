@@ -1,9 +1,10 @@
 package cinepoilisklic.com.ia.elcirculodelexito.ui.registroAlumno;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,9 @@ import android.widget.Toast;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.opcionesAlumno.OpcionesActivity;
+
+import static cinepoilisklic.com.ia.elcirculodelexito.Utils.utils.printToast;
 
 public class AltaAlumnActivity extends AppCompatActivity {
 
@@ -32,7 +36,16 @@ public class AltaAlumnActivity extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guardar(etName.getText().toString() , etNamePadre.getText().toString() , etTelefonoPadre.getText().toString());
+                if(etName == null || etNamePadre == null || etTelefonoPadre == null){
+                    guardar(etName.getText().toString() , etNamePadre.getText().toString() , etTelefonoPadre.getText().toString());
+                    Intent intentAltaAlumno = new Intent(AltaAlumnActivity.this , OpcionesActivity.class);
+                    startActivity(intentAltaAlumno);
+                }
+                else{
+                    /*getAplicationContext : devuelve el contexto del objeto Aplication único y global del proceso actual el cual es onclick*/
+                    printToast(getApplicationContext() , "debe llenar todos los campos");
+                }
+
             }
         });
 

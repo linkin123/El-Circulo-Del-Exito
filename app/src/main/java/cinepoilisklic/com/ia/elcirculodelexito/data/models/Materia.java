@@ -1,23 +1,31 @@
 package cinepoilisklic.com.ia.elcirculodelexito.data.models;
 
-import android.media.Image;
-
 /**
  * Created by Dell on 11/11/2017.
  */
 
 public class Materia {
 
+    private Long id;
     private int imagen;
     private String nombre;
     private  int horas;
     private  String fecha;
 
-    public Materia(int  imagen, String nombre, int horas, String fecha) {
+    public Materia(long id, int imagen, String nombre, int horas, String fecha) {
+        this.id = id;
         this.imagen = imagen;
         this.nombre = nombre;
         this.horas = horas;
         this.fecha = fecha;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getImagen() {
