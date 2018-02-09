@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/baseAplicacion"
-    tools:context=".ui.opcionesAlumno.OpcionesActivity">
+    tools:context=".ui.activities.opcionesAlumno.OpcionesActivity">
 
 
     <ImageView
@@ -17,8 +17,8 @@
     <Button
         android:textAllCaps="false"
         android:background="@drawable/btn"
-        android:id="@+id/opciones_btn_elegir_maestro"
-        android:text="@string/elegirMaestro"
+        android:id="@+id/opciones_btn_entrar_a_clases"
+        android:text="@string/entrar"
         android:layout_margin="@dimen/btn_margin"
         android:textColor="@color/news_white"
         android:layout_width="match_parent"
@@ -28,6 +28,16 @@
         android:textAllCaps="false"
         android:text="@string/paquete_registro"
         android:id="@+id/opciones_btn_alta_paquete"
+        android:layout_margin="@dimen/btn_margin"
+        android:background="@drawable/btn"
+        android:textColor="@color/news_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:textAllCaps="false"
+        android:text="@string/salir"
+        android:id="@+id/opciones_btn_salir_de_clases"
         android:layout_margin="@dimen/btn_margin"
         android:background="@drawable/btn"
         android:textColor="@color/news_white"

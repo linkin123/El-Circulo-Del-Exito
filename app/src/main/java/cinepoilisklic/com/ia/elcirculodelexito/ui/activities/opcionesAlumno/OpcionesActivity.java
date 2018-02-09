@@ -1,16 +1,14 @@
-package cinepoilisklic.com.ia.elcirculodelexito.ui.opcionesAlumno;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.activities.opcionesAlumno;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.altaPaquete.AltaPaqueteActivity;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.registroAlumno.AltaAlumnActivity;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.transicionAlumno.SeleccionaAlumnoActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.seleccionAlumnoMaestro.SeleccionAlumnoMaestroActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.transicionAlumno.SeleccionaAlumnoActivity;
 
 public class OpcionesActivity extends AppCompatActivity {
 
@@ -22,7 +20,7 @@ public class OpcionesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opciones);
 
-        btnRegistro = (Button) findViewById(R.id.opciones_btn_elegir_maestro);
+        btnRegistro = (Button) findViewById(R.id.opciones_btn_entrar_a_clases);
 
         btnRegistro.setOnClickListener(onClickListener);
 
@@ -35,13 +33,18 @@ public class OpcionesActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
 
-                case R.id.opciones_btn_elegir_maestro:
-/*                    Intent intentAltaAlumno = new Intent(OpcionesActivity.this , AltaAlumnActivity.class);
-                    startActivity(intentAltaAlumno);*/
+                case R.id.opciones_btn_entrar_a_clases:
+                    Intent intent = new Intent(OpcionesActivity.this , SeleccionAlumnoMaestroActivity.class);
+                    startActivity(intent);
                     break;
 
                 case R.id.opciones_btn_alta_paquete:
-                    Intent intent = new Intent(OpcionesActivity.this , AltaPaqueteActivity.class);
+                    intent = new Intent(OpcionesActivity.this , SeleccionaAlumnoActivity.class);
+                    startActivity(intent);
+                    break;
+
+                case R.id.opciones_btn_salir_de_clases:
+                    intent = new Intent(OpcionesActivity.this , SeleccionaAlumnoActivity.class);
                     startActivity(intent);
                     break;
 

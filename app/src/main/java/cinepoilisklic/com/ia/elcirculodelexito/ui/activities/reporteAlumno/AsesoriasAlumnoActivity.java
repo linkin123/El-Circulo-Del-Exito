@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito.ui.reporteAlumno;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.activities.reporteAlumno;
 
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Asesoria;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.ListAdapterReporteAlumno;
 
 public class AsesoriasAlumnoActivity extends AppCompatActivity {
 

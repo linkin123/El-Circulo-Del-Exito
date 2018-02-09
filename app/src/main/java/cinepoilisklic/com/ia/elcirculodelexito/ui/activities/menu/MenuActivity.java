@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito.ui.menu;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.activities.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.altaPaquete.AltaPaqueteActivity;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.listaAlumnos.ListaAlumnosActivity;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.opcionesAlumno.OpcionesActivity;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.registroAlumno.AltaAlumnActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.listaAlumnos.ListaAlumnosActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.opcionesAlumno.OpcionesActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.registroAlumno.AltaAlumnActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.registroMaestro.AltaMaestroActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -35,7 +35,7 @@ public class MenuActivity extends AppCompatActivity {
         btnAltaAlumno = (ImageButton)findViewById(R.id.alumno);
         btnAltaAlumno.setOnClickListener(onClickListener);
 
-        btnAltaMaestro = (ImageButton)findViewById(R.id.alta_maestro);
+        btnAltaMaestro = (ImageButton)findViewById(R.id.maestro);
         btnAltaMaestro.setOnClickListener(onClickListener);
 
         btnReporteAlumno = (ImageButton)findViewById(R.id.reporte_alumno);
@@ -65,6 +65,10 @@ public class MenuActivity extends AppCompatActivity {
                     startActivity(intentAsesoriaPaquete);
                     break;
 
+                case R.id.maestro:
+                    Intent intentAltaMaestro = new Intent(MenuActivity.this , AltaMaestroActivity.class);
+                    startActivity(intentAltaMaestro);
+                    break;
             }
         }
     };

@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito.ui.listaMaestros;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.activities.listaMaestros;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

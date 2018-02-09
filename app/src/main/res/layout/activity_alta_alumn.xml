@@ -7,7 +7,7 @@ android:layout_height="match_parent"
 android:background="@color/baseAplicacion"
 android:baselineAligned="true"
 android:orientation="vertical"
-tools:context=".ui.registroAlumno.AltaAlumnActivity">
+tools:context=".ui.activities.registroAlumno.AltaAlumnActivity">
 
 <ScrollView
     android:layout_width="match_parent"

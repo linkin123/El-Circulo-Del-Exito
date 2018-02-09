@@ -6,9 +6,11 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <protected-broadcast android:name="android.intent.action.MEDIA_MOUNTED"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <protected-broadcast android:name="android.intent.action.MEDIA_MOUNTED" />
 
     <application
         android:allowBackup="true"
@@ -17,21 +19,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.menu.MenuActivity">
+        <activity android:name=".ui.activities.menu.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.registroAlumno.AltaAlumnoActivity" />
-        <activity android:name=".ui.listaAlumnos.ListaAlumnosActivity" />
-        <activity android:name=".ui.reporteAlumno.AsesoriasAlumnoActivity" />
-        <activity android:name=".ui.opcionesAlumno.OpcionesActivity" />
-        <activity android:name=".ui.altaPaquete.AltaPaqueteActivity" />
-        <activity android:name=".ui.registroAlumno.AltaAlumnActivity" />
-        <activity android:name=".ui.transicionAlumno.SeleccionaAlumnoActivity" />
-        <activity android:name=".ui.listaMaestros.ListaMaestrosActivity"></activity>
+        <activity android:name=".ui.activities.listaAlumnos.ListaAlumnosActivity" />
+        <activity android:name=".ui.activities.reporteAlumno.AsesoriasAlumnoActivity" />
+        <activity android:name=".ui.activities.opcionesAlumno.OpcionesActivity" />
+        <activity android:name=".ui.activities.altaPaquete.AltaPaqueteActivity" />
+        <activity android:name=".ui.activities.registroAlumno.AltaAlumnActivity" />
+        <activity android:name=".ui.activities.transicionAlumno.SeleccionaAlumnoActivity" />
+        <activity android:name=".ui.activities.listaMaestros.ListaMaestrosActivity" />
+        <activity android:name=".ui.activities.seleccionAlumnoMaestro.SeleccionAlumnoMaestroActivity" />
+        <activity android:name=".ui.activities.registroMaestro.AltaMaestroActivity"></activity>
     </application>
 
 </manifest>

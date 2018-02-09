@@ -1,17 +1,21 @@
-package cinepoilisklic.com.ia.elcirculodelexito.ui.transicionAlumno;
-
+package cinepoilisklic.com.ia.elcirculodelexito.ui.fragments.listaAlumnos;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -19,39 +23,46 @@ import java.util.ArrayList;
 import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Alumno;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.altaPaquete.AltaPaqueteActivity;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.listaAlumnos.AlumnosAdapter;
-import cinepoilisklic.com.ia.elcirculodelexito.ui.reporteAlumno.AsesoriasAlumnoActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.AlumnosAdapter;
 
-public class SeleccionaAlumnoActivity extends AppCompatActivity implements AlumnosAdapter.onItemClickListener {
+/**
+ * Created by lrangel on 09/02/2018.
+ */
+
+public class listaAlumnosFragment  extends Fragment{
 
     ArrayList<Alumno> persons;
     private EditText etSearchBox;
+    public static listaAlumnosFragment newInstace() {
+        return new listaAlumnosFragment();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_list_alumnos, container , false);
+        return view;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selecciona_alumno);
-
-        RecyclerView audioRv = (RecyclerView) findViewById(R.id.audio_rv);
-        etSearchBox = (EditText) findViewById(R.id.etSearchBox);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        RecyclerView audioRv = (RecyclerView) view.findViewById(R.id.audio_rv);
+        etSearchBox = (EditText) view.findViewById(R.id.etSearchBox);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         audioRv.setLayoutManager(linearLayoutManager);
-        populatePersons();
-        final AlumnosAdapter alumnosAdapter = new AlumnosAdapter(persons, this);
-        audioRv.setAdapter(alumnosAdapter);
 
+        populatePersons();
+        final AlumnosAdapter alumnosAdapter = new AlumnosAdapter(persons , (AlumnosAdapter.onItemClickListener) getContext());
+        audioRv.setAdapter(alumnosAdapter);
 
         etSearchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 alumnosAdapter.getFilter().filter(s.toString());
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -60,12 +71,6 @@ public class SeleccionaAlumnoActivity extends AppCompatActivity implements Alumn
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_reporte_alumnos, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,16 +83,16 @@ public class SeleccionaAlumnoActivity extends AppCompatActivity implements Alumn
         return super.onOptionsItemSelected(item);
     }
 
-    public void populatePersons() {
+    public void populatePersons(){
         persons = new ArrayList<>();
-        BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
+        BaseHelper helper = new BaseHelper( getContext(), "Demo" , null , 1);
         SQLiteDatabase db = helper.getReadableDatabase();
         String sql = "select Id , Nombre, NombrePadre , telefono from alumnos";
-        Cursor c = db.rawQuery(sql, null);
-        if (c.moveToFirst()) {
-            do {
-                persons.add(new Alumno(c.getInt(0), c.getString(1), c.getString(2), c.getString(3)));
-            } while (c.moveToNext());
+        Cursor c = db.rawQuery( sql , null);
+        if(c.moveToFirst()){
+            do{
+                persons.add( new Alumno( c.getInt(0) , c.getString(1) , c.getString(2) , c.getString(3) ) );
+            }while( c.moveToNext());
         }
         db.close();
 
@@ -99,11 +104,5 @@ public class SeleccionaAlumnoActivity extends AppCompatActivity implements Alumn
         persons.add(new Alumno("Claudia soto garcia","si ", 345 , 8 ,R.drawable.pegatina_circulo_verde , "05/"));*/
     }
 
-    @Override
-    public void onItemClick(Alumno alumno) {
-        Intent intentAlumno = new Intent(cinepoilisklic.com.ia.elcirculodelexito.ui.transicionAlumno.SeleccionaAlumnoActivity.this, AltaPaqueteActivity.class);
-        intentAlumno.putExtra(AltaPaqueteActivity.EXTRA_ID, alumno.getId());
-        startActivity(intentAlumno);
-    }
-}
 
+}

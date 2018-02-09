@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito.ui.altaPaquete;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.activities.altaPaquete;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,11 +32,12 @@ import java.util.TimeZone;
 import cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Materia;
 import cinepoilisklic.com.ia.elcirculodelexito.R;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasAdapter;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasLinealAdapter;
 
 import static cinepoilisklic.com.ia.elcirculodelexito.Utils.utils.printToast;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.PREPARATORIA_PAQUETE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.PRIMARIA_PAQUETE;
-import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.SECUNDARIA;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.SECUNDARIA_PAQUETE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.UNIVERSIDAD_PAQUETE;
 
@@ -49,10 +49,12 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
     private int nivel=300;
 
     MateriasAdapter materiasAdapter;
+    MateriasLinealAdapter materiasLinealAdapter;
     private Button btnAgregarMateria;
     private Button btnRegistrarPaquete;
     private TextView nombreAlumno;
     RecyclerView recyclerView;
+    RecyclerView recyclerViewPrecios;
     Spinner spinnerMateria;
     Spinner spinnerHoras;
     RadioGroup rgNivel;
@@ -75,6 +77,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
 
         nombreAlumno = (TextView) findViewById(R.id.tv_nombre_alumno);
         recyclerView = (RecyclerView) findViewById(R.id.materias_recycler);
+        recyclerViewPrecios = (RecyclerView) findViewById(R.id.materias_precio_recycler);
         spinnerMateria = (Spinner) findViewById(R.id.spiner_materias);
         spinnerHoras = (Spinner) findViewById(R.id.spiner_horas);
         etCostoTotal = (EditText) findViewById(R.id.et_alta_paquete_costo_total);
@@ -83,7 +86,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
         rgNivel = (RadioGroup) findViewById(R.id.rg_nivel);
         rgNivel.setOnCheckedChangeListener(this);
 
-        initAdapter();
+        initAdapters();
         setdataSpinnersPaquete();
         recibirDatos(savedInstanceState);
         checarCambio();
@@ -170,7 +173,11 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
     };
 
     private void setPrecio() {
-        int costoTotal = nivel*list.size();
+        int costoTotal = 0;
+        for(int i=0; i<list.size(); i++){
+            costoTotal += nivel*( list.get(i).getHoras() / 10);
+        }
+
         etCostoTotal.setText(String.valueOf( costoTotal ));
     }
 
@@ -196,6 +203,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
         if( !estaEnLista(id) ){
             listMaterias.add(new Materia(id , getImageMateria(Materia), Materia, Integer.parseInt(horas), fecha));
             materiasAdapter.notifyDataSetChanged();
+            materiasLinealAdapter.notifyDataSetChanged();
         }
         else{
             Toast.makeText(this, "Este paquete ya fue seleccionado", Toast.LENGTH_SHORT).show();
@@ -212,10 +220,13 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
 
 
 
-    public void initAdapter() {
+    public void initAdapters() {
         list = listMaterias;
         materiasAdapter = new MateriasAdapter(this, list, this);
+        materiasLinealAdapter = new MateriasLinealAdapter(this, list, nivel);
+        recyclerViewPrecios.setLayoutManager( new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , false));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewPrecios.setAdapter(materiasLinealAdapter);
         recyclerView.setAdapter(materiasAdapter);
     }
 
@@ -294,21 +305,25 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
                 nivel = PRIMARIA_PAQUETE;
                 setPrecio();
                 setPrecioDiferencia();
+                initAdapters();
                 break;
             case R.id.rbtn_secundaria:
                 nivel = SECUNDARIA_PAQUETE;
                 setPrecio();
                 setPrecioDiferencia();
+               initAdapters();
                 break;
             case R.id.rbtn_prepa:
                 nivel = PREPARATORIA_PAQUETE;
                 setPrecio();
                 setPrecioDiferencia();
+                initAdapters();
                 break;
             case R.id.rbtn_universidad:
                 nivel = UNIVERSIDAD_PAQUETE;
                 setPrecio();
                 setPrecioDiferencia();
+                initAdapters();
                 break;
 
         }

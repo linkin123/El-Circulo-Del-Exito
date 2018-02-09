@@ -1,4 +1,4 @@
-package cinepoilisklic.com.ia.elcirculodelexito.ui.reporteAlumno;
+package cinepoilisklic.com.ia.elcirculodelexito.ui.adapters;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    android:orientation="vertical"
-    tools:context="cinepoilisklic.com.ia.elcirculodelexito.MenuActivity">
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -48,7 +47,7 @@
             android:src="@drawable/alumnosz40" />
 
         <ImageButton
-            android:id="@+id/alta_maestro"
+            android:id="@+id/maestro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
