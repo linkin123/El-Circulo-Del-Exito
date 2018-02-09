@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.altaPaquete.AltaPaqueteActivity;
@@ -21,7 +22,7 @@ public class OpcionesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opciones);
 
-        btnRegistro = (Button) findViewById(R.id.opciones_btn_registro);
+        btnRegistro = (Button) findViewById(R.id.opciones_btn_elegir_maestro);
 
         btnRegistro.setOnClickListener(onClickListener);
 
@@ -34,14 +35,14 @@ public class OpcionesActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
 
-                case R.id.opciones_btn_registro:
-                    Intent intentAltaAlumno = new Intent(OpcionesActivity.this , AltaAlumnActivity.class);
-                    startActivity(intentAltaAlumno);
+                case R.id.opciones_btn_elegir_maestro:
+/*                    Intent intentAltaAlumno = new Intent(OpcionesActivity.this , AltaAlumnActivity.class);
+                    startActivity(intentAltaAlumno);*/
                     break;
 
                 case R.id.opciones_btn_alta_paquete:
-                    Intent intentAltaMaestro = new Intent(OpcionesActivity.this , SeleccionaAlumnoActivity.class);
-                    startActivity(intentAltaMaestro);
+                    Intent intent = new Intent(OpcionesActivity.this , AltaPaqueteActivity.class);
+                    startActivity(intent);
                     break;
 
             }

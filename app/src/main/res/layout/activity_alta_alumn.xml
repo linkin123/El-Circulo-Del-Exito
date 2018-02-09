@@ -31,6 +31,7 @@ tools:context=".ui.registroAlumno.AltaAlumnActivity">
             android:src="@drawable/alumnosz40" />
 
         <ImageButton
+            android:id="@+id/ib_camera"
             android:src="@drawable/camara"
             android:scaleType="centerCrop"
             android:layout_width="100dp"

@@ -47,9 +47,9 @@
     <string name="title_activity_alta_maestros">AltaMaestrosActivity</string>
     <string name="buscar">buscar</string>
     <string name="action_settings">Settings</string>
-    <string name="registro">alta de alumno</string>
-    <string name="paquete_registro">alta de paquete</string>
+    <string name="paquete_registro">Compra de paquete</string>
     <string name="registrar">Registrar</string>
+    <string name="elegirMaestro">Elegir Maestro</string>
     <string-array name="nivel">
         <item>Primaria</item>
         <item>Secundaria</item>

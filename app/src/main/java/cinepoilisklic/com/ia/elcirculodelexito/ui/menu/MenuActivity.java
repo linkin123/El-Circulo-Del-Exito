@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.altaPaquete.AltaPaqueteActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.listaAlumnos.ListaAlumnosActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.opcionesAlumno.OpcionesActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.registroAlumno.AltaAlumnActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -49,13 +51,18 @@ public class MenuActivity extends AppCompatActivity {
             switch (v.getId()){
 
                 case R.id.alumno:
-                   Intent intentAltaAlumno = new Intent(MenuActivity.this , OpcionesActivity.class);
+                   Intent intentAltaAlumno = new Intent(MenuActivity.this , AltaAlumnActivity.class);
                     startActivity(intentAltaAlumno);
                     break;
 
                 case R.id.reporte_alumno:
                     Intent intentReporteAlumno = new Intent(MenuActivity.this , ListaAlumnosActivity.class);
                     startActivity(intentReporteAlumno);
+                    break;
+
+                case R.id.asesoria_paquete:
+                    Intent intentAsesoriaPaquete = new Intent(MenuActivity.this , OpcionesActivity.class);
+                    startActivity(intentAsesoriaPaquete);
                     break;
 
             }
