@@ -52,10 +52,11 @@ public class AltaMaestroActivity extends AppCompatActivity implements RadioGroup
 
     private String MATUTINO = "matutino";
     private String VERPERTINO = "verpertino";
-    private String horario;
+    private String horario = MATUTINO;
 
     private  final int PHOTO_CODE = 100;
     private  final int SELECTED_PICTURE = 200;
+    private boolean insertoImagen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,6 @@ public class AltaMaestroActivity extends AppCompatActivity implements RadioGroup
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(intent.createChooser(intent, "selecciona app de la imagen"), SELECTED_PICTURE);
-
                 } else if (options[seleccion] == "cancelar") {
                     dialog.dismiss();
 
@@ -123,14 +123,21 @@ public class AltaMaestroActivity extends AppCompatActivity implements RadioGroup
     }
 
     private void botonRegistrar() {
-            if(etName == null || etName == null || etDomicilio == null || etTelefonoMaestro == null){
-                    /*getAplicationContext : devuelve el contexto del objeto Aplication único y global del proceso actual el cual es onclick*/
-                printToast(getApplicationContext() , "debe llenar todos los campos");
+            if(etName.length() > 0 && etDomicilio.length() > 0 && etTelefonoMaestro.length() > 0){
+
+                if(insertoImagen == true){
+                    guardar(etName.getText().toString() , etDomicilio.getText().toString() , etTelefonoMaestro.getText().toString() , horario);
+                    Intent intentAltaAlumno = new Intent(AltaMaestroActivity.this , OpcionesActivity.class);
+                    startActivity(intentAltaAlumno);
+                }
+                else{
+                    printToast(getApplicationContext() , "debe seleccionar una imagen para el profesor");
+                }
+
             }
             else{
-                guardar(etName.getText().toString() , etDomicilio.getText().toString() , etTelefonoMaestro.getText().toString());
-                Intent intentAltaAlumno = new Intent(AltaMaestroActivity.this , OpcionesActivity.class);
-                startActivity(intentAltaAlumno);
+                /*getAplicationContext : devuelve el contexto del objeto Aplication único y global del proceso actual el cual es onclick*/
+                printToast(getApplicationContext() , "debe llenar todos los campos");
 
             }
         }
@@ -143,6 +150,7 @@ public class AltaMaestroActivity extends AppCompatActivity implements RadioGroup
                 if (resultCode == RESULT_OK) {
                     String dir = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
                     decodeBitmap(dir);
+                    insertoImagen = true;
                 }
                 break;
 
@@ -150,12 +158,14 @@ public class AltaMaestroActivity extends AppCompatActivity implements RadioGroup
                 if (resultCode == RESULT_OK) {
                     Uri path = data.getData();
                     civMaestro.setImageURI(path);
+                    insertoImagen = true;
+
                 }
                 break;
         }
     }
 
-    private void guardar(String nombre, String domicilio,  String telefonoMaestro) {
+    private void guardar(String nombre, String domicilio,  String telefonoMaestro, String horario) {
         BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
         try {

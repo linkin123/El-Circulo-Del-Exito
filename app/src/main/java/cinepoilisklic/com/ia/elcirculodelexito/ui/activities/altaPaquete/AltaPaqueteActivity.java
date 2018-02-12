@@ -1,5 +1,6 @@
 package cinepoilisklic.com.ia.elcirculodelexito.ui.activities.altaPaquete;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +48,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
 
     public static String EXTRA_ID = "id";
     private int idAlumno;
-    private int nivel=300;
+    private int nivel = 300;
 
     MateriasAdapter materiasAdapter;
     MateriasLinealAdapter materiasLinealAdapter;
@@ -113,11 +115,11 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
     }
 
     private void setPrecioDiferencia() {
-        if(etRegistroPago.length() > 0){
+        if (etRegistroPago.length() > 0) {
             int pago = Integer.valueOf(String.valueOf(etRegistroPago.getText()));
             int costo = Integer.valueOf(String.valueOf(etCostoTotal.getText()));
             int diferencia = pago - costo;
-            etDiferencia.setText( String.valueOf( diferencia ) );
+            etDiferencia.setText(String.valueOf(diferencia));
         }
 
     }
@@ -152,19 +154,13 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
             switch (v.getId()) {
 
                 case R.id.btn_agregar_materia:
-                    addPaquete(spinnerMateria.getSelectedItemId()-1 ,spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
+                    addPaquete(spinnerMateria.getSelectedItemId() - 1, spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
                     setPrecio();
                     break;
 
                 case R.id.btn_registrar_paquete:
-                    if(camposNoEstanVacios()){
-                        Log.d("TAG", "se insertaron en la bdd idAlumno:"+idAlumno +", nivel:"+nivel);
-                        for(int i=0; i<list.size(); i++){
-                            System.out.println(list.get(i).getNombre() + "--"+ list.get(i).getHoras() + "--" + list.get(i).getFecha());
-                        }
-
-/*                        insertarBDD();*/
-
+                    if (camposNoEstanVacios()) {
+                        guardar(list);
                     }
                     break;
 
@@ -172,13 +168,39 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
         }
     };
 
+    private void guardar(List<Materia> listMaterias) {
+        BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        try {
+            ContentValues c = new ContentValues();
+            for (int i = 0; i < listMaterias.size(); i++) {
+                c.put("idAlumno", idAlumno);
+                c.put("idPaquete", listMaterias.get(i).getId());
+                c.put("tiempoAsesoria", 0);
+                c.put("tiempoRestante", listMaterias.get(i).getHoras());
+                System.out.println(listMaterias.get(i).getNombre() + "--" + listMaterias.get(i).getHoras() + "--" + listMaterias.get(i).getFecha());
+
+            }
+
+            //c.put("foto" , foto);
+            db.insert("ALUMNOPAQUETES", null, c);
+            db.close();
+            Toast.makeText(this, "registro insersato", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+        Log.d("TAG", "se insertaron en la bdd idAlumno:" + idAlumno + ", nivel:" + nivel);
+
+    }
+
     private void setPrecio() {
         int costoTotal = 0;
-        for(int i=0; i<list.size(); i++){
-            costoTotal += nivel*( list.get(i).getHoras() / 10);
+        for (int i = 0; i < list.size(); i++) {
+            costoTotal += nivel * (list.get(i).getHoras() / 10);
         }
 
-        etCostoTotal.setText(String.valueOf( costoTotal ));
+        etCostoTotal.setText(String.valueOf(costoTotal));
     }
 
     private void insertarBDD() {
@@ -186,45 +208,42 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
     }
 
     private boolean camposNoEstanVacios() {
-        if(materiasAdapter.getItemCount() == 0){
-            printToast(getApplicationContext() , "debe seleccionar por lo menos un paquete");
-            return false;
+        if (materiasAdapter.getItemCount() > 0) {
+            return true;
         }
         return true;
     }
 
-    private void addPaquete(long id , String Materia, String horas) {
+    private void addPaquete(long id, String Materia, String horas) {
         Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
         int monthDay = calendarNow.get(Calendar.DAY_OF_MONTH);
         int month = calendarNow.get(Calendar.MONTH) + 1;
         int anio = calendarNow.get(Calendar.YEAR);
         String fecha = String.valueOf(monthDay + "/" + month + "/" + anio);
 
-        if( !estaEnLista(id) ){
-            listMaterias.add(new Materia(id , getImageMateria(Materia), Materia, Integer.parseInt(horas), fecha));
+        if (!estaEnLista(id)) {
+            listMaterias.add(new Materia(id, getImageMateria(Materia), Materia, Integer.parseInt(horas), fecha));
             materiasAdapter.notifyDataSetChanged();
             materiasLinealAdapter.notifyDataSetChanged();
-        }
-        else{
+        } else {
             Toast.makeText(this, "Este paquete ya fue seleccionado", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private boolean estaEnLista(long id){
-        for(int i=0; i<listMaterias.size(); i++)
-            if(id == listMaterias.get(i).getId() )
+    private boolean estaEnLista(long id) {
+        for (int i = 0; i < listMaterias.size(); i++)
+            if (id == listMaterias.get(i).getId())
                 return true;
-            return false;
+        return false;
     }
-
 
 
     public void initAdapters() {
         list = listMaterias;
         materiasAdapter = new MateriasAdapter(this, list, this);
         materiasLinealAdapter = new MateriasLinealAdapter(this, list, nivel);
-        recyclerViewPrecios.setLayoutManager( new LinearLayoutManager(this , LinearLayoutManager.VERTICAL , false));
+        recyclerViewPrecios.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewPrecios.setAdapter(materiasLinealAdapter);
         recyclerView.setAdapter(materiasAdapter);
@@ -293,14 +312,10 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
         return 0;
     }
 
-    @Override
-    public void onItemClick(Materia mateia) {
-
-    }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId){
+        switch (checkedId) {
             case R.id.rbtn_primaria:
                 nivel = PRIMARIA_PAQUETE;
                 setPrecio();
@@ -311,7 +326,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
                 nivel = SECUNDARIA_PAQUETE;
                 setPrecio();
                 setPrecioDiferencia();
-               initAdapters();
+                initAdapters();
                 break;
             case R.id.rbtn_prepa:
                 nivel = PREPARATORIA_PAQUETE;
@@ -327,6 +342,10 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
                 break;
 
         }
+    }
 
+    @Override
+    public void onItemClick(Materia mateia) {
+        System.out.println("editar");
     }
 }

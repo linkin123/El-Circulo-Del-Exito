@@ -45,6 +45,7 @@ public class AltaAlumnActivity extends AppCompatActivity {
 
     private final int PHOTO_CODE = 100;
     private final int SELECTED_PICTURE = 200;
+    private boolean insertoImagen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,6 @@ public class AltaAlumnActivity extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(intent.createChooser(intent, "selecciona app de la imagen"), SELECTED_PICTURE);
-
                 } else if (options[seleccion] == "cancelar") {
                     dialog.dismiss();
 
@@ -97,14 +97,27 @@ public class AltaAlumnActivity extends AppCompatActivity {
     }
 
     private void botonRegistrar() {
-        if(etName == null || etNamePadre == null || etTelefonoPadre == null){
-                    /*getAplicationContext : devuelve el contexto del objeto Aplication único y global del proceso actual el cual es onclick*/
-            printToast(getApplicationContext() , "debe llenar todos los campos");
-        }
-        else{
+        if(camposNoVacios()){
             guardar(etName.getText().toString() , etNamePadre.getText().toString() , etTelefonoPadre.getText().toString());
             Intent intentAltaAlumno = new Intent(AltaAlumnActivity.this , OpcionesActivity.class);
             startActivity(intentAltaAlumno);
+        }
+    }
+
+    private boolean camposNoVacios() {
+        if(etName.length() > 0 && etNamePadre.length() > 0 && etTelefonoPadre.length() > 0){
+            if(insertoImagen == true){
+                return true;
+            }
+            else{
+                printToast(getApplicationContext() , "debe seleccionar una imagen para el alumno");
+                return false;
+            }
+        }
+        else{
+            /*getAplicationContext : devuelve el contexto del objeto Aplication único y global del proceso actual el cual es onclick*/
+            printToast(getApplicationContext() , "debe llenar todos los campos");
+            return false;
 
         }
     }
@@ -117,6 +130,7 @@ public class AltaAlumnActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     String dir = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
                     decodeBitmap(dir);
+                    insertoImagen = true;
                 }
                 break;
 
@@ -124,6 +138,7 @@ public class AltaAlumnActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     Uri path = data.getData();
                     civAlumno.setImageURI(path);
+                    insertoImagen = true;
                 }
                 break;
         }

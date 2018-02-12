@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -37,17 +39,28 @@ public class MateriasAdapter extends RecyclerView.Adapter<MateriasAdapter.ItemVi
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
         final Materia materia = list.get(position);
         holder.nombre.setText("materia :" + materia.getNombre());
         holder.horas.setText("horas " + String.valueOf(materia.getHoras()));
         holder.fecha.setText("caduca :" + materia.getFecha());
         holder.image.setImageResource(materia.getImagen());
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                System.out.println("click largo para eliminar");
+
+
+                /*lanzar dialog*/
+                return false;
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onItemClick(materia);
+                System.out.println("click corto para editar");
+                /*lanzar dialog*/
             }
         });
     }
@@ -67,7 +80,8 @@ public class MateriasAdapter extends RecyclerView.Adapter<MateriasAdapter.ItemVi
             nombre = (TextView) itemView.findViewById(R.id.nombre_materia_cardview);
             horas = (TextView) itemView.findViewById(R.id.horas_materia_cardview);
             fecha = (TextView) itemView.findViewById(R.id.fecha_materia_cardview);
-           image = (ImageView) itemView.findViewById(R.id.imagen_materia_cardView);
+            image = (ImageView) itemView.findViewById(R.id.imagen_materia_cardView);
+
         }
     }
 
