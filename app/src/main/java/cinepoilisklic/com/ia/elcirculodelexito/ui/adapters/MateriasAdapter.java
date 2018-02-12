@@ -1,6 +1,8 @@
 package cinepoilisklic.com.ia.elcirculodelexito.ui.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Materia;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.altaPaquete.AltaPaqueteActivity;
 
 /**
  * Created by Dell on 11/11/2017.
@@ -49,9 +52,21 @@ public class MateriasAdapter extends RecyclerView.Adapter<MateriasAdapter.ItemVi
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                System.out.println("click largo para eliminar");
-
-
+                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(v.getRootView().getContext());
+                dialogo1.setTitle("Importante");
+                dialogo1.setMessage("¿ Elimina este teléfono ?");
+                dialogo1.setCancelable(false);
+                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        Toast.makeText(mcontext , "elemento eliminado", Toast.LENGTH_LONG);
+                    }
+                });
+                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                    }
+                });
+                dialogo1.show();
+/*                System.out.println("click largo para eliminar");*/
                 /*lanzar dialog*/
                 return false;
             }
