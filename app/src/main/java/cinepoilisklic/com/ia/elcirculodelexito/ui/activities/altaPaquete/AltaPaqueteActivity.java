@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.ArrayRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,11 +45,11 @@ import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.SECUNDARIA_PA
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.UNIVERSIDAD_PAQUETE;
 
 
-public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAdapter.onItemClickListener, RadioGroup.OnCheckedChangeListener {
+public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     public static String EXTRA_ID = "id";
     private int idAlumno;
-    private int nivel = 300;
+    public static  int nivel = 300;
 
     MateriasAdapter materiasAdapter;
     MateriasLinealAdapter materiasLinealAdapter;
@@ -60,15 +61,15 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
     Spinner spinnerMateria;
     Spinner spinnerHoras;
     RadioGroup rgNivel;
-    EditText etCostoTotal;
-    EditText etDiferencia;
-    EditText etRegistroPago;
+    public static EditText etCostoTotal;
+    public static EditText etDiferencia;
+    public static EditText etRegistroPago;
 
-    public List<Materia> list = new ArrayList<>();
+    public static List<Materia> list = new ArrayList<>();
     List<Materia> listMaterias = new ArrayList();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_paquete);
 
@@ -156,6 +157,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
                 case R.id.btn_agregar_materia:
                     addPaquete(spinnerMateria.getSelectedItemId() - 1, spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
                     setPrecio();
+                    setPrecioDiferencia();
                     break;
 
                 case R.id.btn_registrar_paquete:
@@ -241,12 +243,17 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
 
     public void initAdapters() {
         list = listMaterias;
-        materiasAdapter = new MateriasAdapter(this, list, this);
+
         materiasLinealAdapter = new MateriasLinealAdapter(this, list, nivel);
+        materiasAdapter = new MateriasAdapter(this, list, onClickListener, materiasLinealAdapter);
+
         recyclerViewPrecios.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
         recyclerViewPrecios.setAdapter(materiasLinealAdapter);
         recyclerView.setAdapter(materiasAdapter);
+
+
     }
 
     private void setdataSpinnersPaquete() {
@@ -254,7 +261,6 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
         spinnerHoras.setAdapter(getDataAdapterPaquete(R.array.horas));
         hideKeyboard(spinnerMateria);
         hideKeyboard(spinnerHoras);
-
     }
 
     private void hideKeyboard(Spinner spinner) {
@@ -344,8 +350,5 @@ public class AltaPaqueteActivity extends AppCompatActivity implements MateriasAd
         }
     }
 
-    @Override
-    public void onItemClick(Materia mateia) {
-        System.out.println("editar");
-    }
+
 }
