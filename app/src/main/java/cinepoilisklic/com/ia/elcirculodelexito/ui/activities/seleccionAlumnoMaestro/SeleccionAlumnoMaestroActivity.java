@@ -23,7 +23,7 @@ import cinepoilisklic.com.ia.elcirculodelexito.data.models.Alumno;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.altaPaquete.AltaPaqueteActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.AlumnosAdapter;
 
-public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements AlumnosAdapter.onItemClickListener {
+public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements AlumnosAdapter.onItemClickListener{
 
     ArrayList<String> idAlumns;
     ArrayList<String> idMaestros;
@@ -51,15 +51,9 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
         etFilterMaestro = (EditText) findViewById(R.id.etSearchBox_maestroAlumno);
         spAlumnos = (Spinner) findViewById(R.id.spiner_alumnos);
         spMaestros = (Spinner) findViewById(R.id.spiner_maestros);
-
         populatePersons();
         arrays();
-
-        buscarAlumno();
-        buscarMaestro();
-
         setDatosPersons();
-
     }
 
     private void setDatosPersons() {
@@ -92,47 +86,6 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
         }
     };
 
-    private void buscarMaestro() {
-        etFilterMaestro.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                arrayMaestros.getFilter().filter(s.toString());
-                setDatosPersons();
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
-    private void buscarAlumno() {
-        etFilterAlumno.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                arrayAlumnos.getFilter().filter(s.toString());
-                setDatosPersons();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
     private void arrays() {
         arrayAlumnos = new ArrayAdapter(this, R.layout.item_view_spiner, idAlumns);
         arrayMaestros = new ArrayAdapter(this, R.layout.item_view_spiner, idMaestros);
@@ -145,6 +98,18 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
     }
 
 
+    private int getPersonsById(String nombre){
+        String token = " - ";
+        BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        int id=0;
+        String sqlAlumnos = "select id from Alumnos where nombre= '" + nombre + "'";
+        Cursor c = db.rawQuery(sqlAlumnos, null);
+        if (c.moveToFirst()) {
+            id = c.getInt(0);
+        }
+         return id;
+    }
     private void populatePersons() {
         idAlumns = new ArrayList<>();
         idAlumns.add("Alumnos");

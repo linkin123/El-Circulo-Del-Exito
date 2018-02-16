@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -120,21 +121,31 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
     }
 
     private void setPrecioDiferencia() {
-        int pago;
-        if (etRegistroPago.length() > 0)
-            pago = Integer.valueOf(String.valueOf(etRegistroPago.getText()));
-        else
-            pago = 0;
+        if(TextUtils.isDigitsOnly( etRegistroPago.getText()) && etRegistroPago.length() > 0){
+            int pago;
+            int costo;
+            if (etRegistroPago.length() > 0 )
+                pago = Integer.valueOf(String.valueOf(etRegistroPago.getText()));
+            else
+                pago = 0;
+            if(etCostoTotal.length() > 0){
+                costo = Integer.valueOf(String.valueOf(etCostoTotal.getText()));
+            }
+            else
+                costo = 0;
 
-        int costo = Integer.valueOf(String.valueOf(etCostoTotal.getText()));
-        int diferencia = pago - costo;
-        if(diferencia < 0){
-            tvDiferencia.setText("debe : ");
-            diferencia = -1*diferencia;
-        }else
-            tvDiferencia.setText("cambio : ");
+            int diferencia = pago - costo;
+            if(diferencia < 0){
+                tvDiferencia.setText("debe : ");
+                diferencia = -1*diferencia;
+            }else
+                tvDiferencia.setText("cambio : ");
 
-        etDiferencia.setText("$"+String.valueOf(diferencia));
+            etDiferencia.setText("$"+String.valueOf(diferencia));
+
+        }else{
+            printToast(this , "debe ingresar una cantidad numerica válida ");
+        }
 
 
     }
@@ -182,13 +193,19 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
 
                     break;
-
                 case R.id.btn_registrar_paquete:
                     if (camposNoEstanVacios()) {
                         if( etRegistroPago.getText().length() == 0 )
                             mostrarAlertPagoEnCero();
-                        else
-                            guardar(list);
+                        else{
+                            if(TextUtils.isDigitsOnly( etRegistroPago.getText())  ){
+                                guardar(list);
+                            }
+                            else
+                                printToast(getApplicationContext() , "debe ingresar una cantidad numerica válida en registro de pago ");
+                        }
+
+
                     }
                     else
                         Toast.makeText(getApplicationContext(), "error : debe agregar un paquete al menos", Toast.LENGTH_SHORT).show();
