@@ -24,6 +24,7 @@ import java.io.File;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.menu.MenuActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.opcionesAlumno.OpcionesActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.registroAlumno.AltaAlumnActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -127,7 +128,7 @@ public class AltaMaestroActivity extends AppCompatActivity implements RadioGroup
 
                 if(insertoImagen == true){
                     guardar(etName.getText().toString() , etDomicilio.getText().toString() , etTelefonoMaestro.getText().toString() , horario);
-                    Intent intentAltaAlumno = new Intent(AltaMaestroActivity.this , OpcionesActivity.class);
+                    Intent intentAltaAlumno = new Intent(AltaMaestroActivity.this , MenuActivity.class);
                     startActivity(intentAltaAlumno);
                 }
                 else{
@@ -169,14 +170,14 @@ public class AltaMaestroActivity extends AppCompatActivity implements RadioGroup
         BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
         try {
-/*            ContentValues c = new ContentValues();
+            ContentValues c = new ContentValues();
             c.put("Nombre", nombre);
             c.put("domicilio", domicilio);
             c.put("telefono", telefonoMaestro);
-            c.put("horario", verpertino);
+            c.put("horario", "verpertino");
             //c.put("foto", foto);
             db.insert("MAESTROS", null, c);
-            db.close();*/
+            db.close();
             Toast.makeText(this, "registro insersato", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();

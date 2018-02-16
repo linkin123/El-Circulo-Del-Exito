@@ -61,6 +61,7 @@ public class AsesoriasAlumnoActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 listAdapterReporteAlumno.getFilter().filter(s.toString());
+                System.out.println("nada");
             }
             @Override
             public void afterTextChanged(Editable s) {

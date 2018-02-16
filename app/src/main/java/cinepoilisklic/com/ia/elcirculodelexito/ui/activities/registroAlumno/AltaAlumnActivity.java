@@ -151,7 +151,7 @@ public class AltaAlumnActivity extends AppCompatActivity {
             ContentValues c = new ContentValues();
             c.put("Nombre", Nombre);
             c.put("nombrePadre", NombrePadre);
-            c.put("telefono", telefonoPadre);
+            c.put("telefonoPadre", telefonoPadre);
             //c.put("foto" , foto);
             db.insert("ALUMNOS", null, c);
             db.close();

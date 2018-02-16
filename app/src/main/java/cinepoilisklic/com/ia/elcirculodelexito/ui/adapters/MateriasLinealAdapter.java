@@ -21,7 +21,6 @@ public class MateriasLinealAdapter extends RecyclerView.Adapter<MateriasLinealAd
 
     private Context mcontext;
     private List<Materia> list;
-    private onItemClickListener mListener;
     private int nivel;
 
     public MateriasLinealAdapter(Context mcontext, List<Materia> list , int nivel) {
@@ -45,12 +44,7 @@ public class MateriasLinealAdapter extends RecyclerView.Adapter<MateriasLinealAd
         holder.nombre.setText("materia :" + materia.getNombre());
         holder.horas.setText(" horas : " + String.valueOf(materia.getHoras()));
         holder.precio.setText(" precio : $"+ nivel*(materia.getHoras()/10));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onItemClick(materia);
-            }
-        });
+
     }
 
     @Override
@@ -69,9 +63,5 @@ public class MateriasLinealAdapter extends RecyclerView.Adapter<MateriasLinealAd
             precio = (TextView) itemView.findViewById(R.id.precio_materia_cardview);
 
         }
-    }
-
-    public interface onItemClickListener {
-        void onItemClick(Materia mateia);
     }
 }

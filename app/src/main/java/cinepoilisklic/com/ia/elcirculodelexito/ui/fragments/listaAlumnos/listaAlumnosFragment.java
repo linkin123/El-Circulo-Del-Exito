@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -33,6 +35,10 @@ public class listaAlumnosFragment  extends Fragment{
 
     ArrayList<Alumno> persons;
     private EditText etSearchBox;
+    private LinearLayout layoutContent;
+    private LinearLayout layoutMsj;
+    private RecyclerView audioRv;
+
     public static listaAlumnosFragment newInstace() {
         return new listaAlumnosFragment();
     }
@@ -46,29 +52,40 @@ public class listaAlumnosFragment  extends Fragment{
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        RecyclerView audioRv = (RecyclerView) view.findViewById(R.id.audio_rv);
+        audioRv = (RecyclerView) view.findViewById(R.id.audio_rv);
         etSearchBox = (EditText) view.findViewById(R.id.etSearchBox);
+        layoutContent = (LinearLayout) view.findViewById(R.id.layout_lista_alumnos);
+        layoutMsj = (LinearLayout) view.findViewById(R.id.layout_msj);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         audioRv.setLayoutManager(linearLayoutManager);
 
         populatePersons();
-        final AlumnosAdapter alumnosAdapter = new AlumnosAdapter(persons , (AlumnosAdapter.onItemClickListener) getContext());
-        audioRv.setAdapter(alumnosAdapter);
+        showUI();
+    }
 
-        etSearchBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                alumnosAdapter.getFilter().filter(s.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
+    private void showUI() {
+        if(persons.isEmpty()){
+            showMsj();
+        }else {
+            hideMsj();
+            final AlumnosAdapter alumnosAdapter = new AlumnosAdapter(persons , (AlumnosAdapter.onItemClickListener) getContext());
+            audioRv.setAdapter(alumnosAdapter);
 
-            }
-        });
+            etSearchBox.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    alumnosAdapter.getFilter().filter(s.toString());
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
 
+                }
+            });
+
+        }
     }
 
 
@@ -87,7 +104,7 @@ public class listaAlumnosFragment  extends Fragment{
         persons = new ArrayList<>();
         BaseHelper helper = new BaseHelper( getContext(), "Demo" , null , 1);
         SQLiteDatabase db = helper.getReadableDatabase();
-        String sql = "select Id , Nombre, NombrePadre , telefono from alumnos";
+        String sql = "select id , Nombre, NombrePadre , telefonoPadre from alumnos";
         Cursor c = db.rawQuery( sql , null);
         if(c.moveToFirst()){
             do{
@@ -95,14 +112,14 @@ public class listaAlumnosFragment  extends Fragment{
             }while( c.moveToNext());
         }
         db.close();
-
-/*        persons.add(new Alumno("Karla Lopez Herrrera", "no ", 123, 0 , R.drawable.pegatina_circulo_rojo, "15/08/2017"));
-        persons.add(new Alumno("Fernando juarez perez","si ", 127 , 6 ,R.drawable.pegatina_circulo_verde, "10/02/2018"));
-        persons.add(new Alumno("isis gomez avila","no ", 232, 0, R.drawable.pegatina_circulo_rojo, "02/04/2016"));
-        persons.add(new Alumno("jose luis pavia romero","no ",112, 0 ,R.drawable.pegatina_circulo_rojo, "03/03/2016"));
-        persons.add(new Alumno("Dorian guzman hernandez","si ",223, 4, R.drawable.pegatina_circulo_verde, "03/06/2018"));
-        persons.add(new Alumno("Claudia soto garcia","si ", 345 , 8 ,R.drawable.pegatina_circulo_verde , "05/"));*/
     }
 
-
+    public void hideMsj(){
+        layoutMsj.setVisibility(View.GONE);
+        layoutContent.setVisibility(View.VISIBLE);
+    }
+    public void showMsj(){
+        layoutContent.setVisibility(View.GONE);
+        layoutMsj.setVisibility(View.VISIBLE);
+    }
 }

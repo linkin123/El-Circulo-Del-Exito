@@ -21,7 +21,6 @@
         app:cardCornerRadius="1dp">
 
         <LinearLayout
-
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="#cfd6d6"
@@ -30,12 +29,11 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <ImageView
-
                     android:id="@+id/imagen_materia_cardView"
-                    android:scaleType="centerCrop"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@mipmap/ic_launcher" />
@@ -50,6 +48,7 @@
                         android:id="@+id/nombre_materia_cardview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="nombre"
                         android:textSize="15sp"
 

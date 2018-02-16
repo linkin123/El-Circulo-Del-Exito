@@ -5,10 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.AlumnoMaestros.ALUMNO_MAESTROS_CREATE;
-import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.AlumnoPaquete.ALUMNO_PAQUETE_CREATE;
-import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Alumnos.ALUMNOS_CREATE;
-import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Maestros.MAESTROS_CREATE;
+
+import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Alumnos.*;
+import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Alumnos.COLUNM_ID;
+import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Maestros.*;
+
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Materia.MATERIA_CREATE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.MateriasNiveles.MATERIAS_NIVELES_CREATE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Nivel.NIVEL_CREATE;
@@ -17,13 +18,17 @@ import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.P
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.PaqueteMateria.PAQUETE_MATERIA_CREATE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.PaqueteNivel.PAQUETE_NIVEL_CREATE;
 
+import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.AlumnoMaestros.ALUMNO_MAESTROS_CREATE;
+import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.AlumnoPaquete.ALUMNO_PAQUETE_CREATE;
+
+
 /**
  * Created by lrangel on 07/02/2018.
  */
 
 public class BaseHelper  extends SQLiteOpenHelper{
 
-
+    String tablaMaestros = "CREATE TABLE MAESTROS(ID INTEGER PRIMARY KEY , NOMBRE TEXT, DOMICILIO TEXT, TELEFONO INTEGER, HORARIO TEXT)";
     public static final class Alumnos{
         public static String TABLE_ALUMNOS = "ALUMNOS";
         public static String COLUNM_ID = "id";
@@ -46,8 +51,8 @@ public class BaseHelper  extends SQLiteOpenHelper{
         public static String TABLE_MAESTROS = "MAESTROS";
         public static String COLUNM_ID = "id";
         public static String COLUNM_NOMBRE = "nombre";
-        public static String COLUNM_TELEFONO = "telefono";
         public static String COLUNM_DOMICILIO = "domicilio";
+        public static String COLUNM_TELEFONO = "telefono";
         public static String COLUNM_HORARIO = "horario";
 
         public static final String MAESTROS_CREATE =
@@ -56,8 +61,8 @@ public class BaseHelper  extends SQLiteOpenHelper{
                         + "("
                         + COLUNM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                         + COLUNM_NOMBRE + " TEXT NOT NULL, "
+                        + COLUNM_DOMICILIO + " TEXT NOT NULL, "
                         + COLUNM_TELEFONO +" TEXT NOT NULL, "
-                        + COLUNM_DOMICILIO + " TEXT NOT NULL"
                         + COLUNM_HORARIO + " TEXT NOT NULL"
                         + ");";
 
@@ -72,8 +77,15 @@ public class BaseHelper  extends SQLiteOpenHelper{
                 "CREATE TABLE "
                         + TABLE_ALUMNO_MAESTROS
                         + "("
-                        + COLUNM_ID_ALUMNO + " INTEGER FOREIGN KEY, "
-                        + COLUNM_ID_MAESTRO + " INTEGER FOREIGN KEY,"
+                        + COLUNM_ID_ALUMNO + " INTEGER, "
+                        + COLUNM_ID_MAESTRO + " INTEGER, "
+                        + "FOREIGN KEY(" + COLUNM_ID_ALUMNO + ") "
+                        + "REFERENCE " + TABLE_ALUMNOS
+                        + "(" + Alumnos.COLUNM_ID + "), "
+
+                        + "FOREIGN KEY(" + COLUNM_ID_MAESTRO + ") "
+                        + "REFERENCE " + TABLE_MAESTROS
+                        + "(" + Maestros.COLUNM_ID + ") "
                         + ");";
 
     }
@@ -88,7 +100,7 @@ public class BaseHelper  extends SQLiteOpenHelper{
                         + TABLE_MATERIA
                         + "("
                         + COLUNM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                        + COLUNM_NOMBRE + " TEXT NOT NULL,"
+                        + COLUNM_NOMBRE + " TEXT NOT NULL"
                         + ");";
 
     }
@@ -102,8 +114,8 @@ public class BaseHelper  extends SQLiteOpenHelper{
                 "CREATE TABLE "
                         + TABLE_MATERIAS_NIVEL
                         + "("
-                        + COLUNM_ID_MATERIA + " INTEGER FOREIGN KEY, "
-                        + COLUNM_ID_NIVEL + " INTEGER FOREIGN KEY,"
+                        + COLUNM_ID_MATERIA + " INTEGER, "
+                        + COLUNM_ID_NIVEL + " INTEGER"
                         + ");";
 
     }
@@ -118,7 +130,7 @@ public class BaseHelper  extends SQLiteOpenHelper{
                         + TABLE_NIVEL
                         + "("
                         + COLUNM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                        + COLUNM_NOMBRE + " TEXT NOT NULL,"
+                        + COLUNM_NOMBRE + " TEXT NOT NULL"
                         + ");";
 
     }
@@ -134,10 +146,10 @@ public class BaseHelper  extends SQLiteOpenHelper{
                 "CREATE TABLE "
                         + TABLE_ALUMNO_PAQUETE
                         + "("
-                        + COLUNM_ID_ALUMNO + " INTEGER FOREIGN KEY, "
-                        + COLUNM_ID_PAQUETE + " INTEGER FOREIGN KEY,"
+                        + COLUNM_ID_ALUMNO + " INTEGER, "
+                        + COLUNM_ID_PAQUETE + " INTEGER,"
                         + COLUNM_ID_ALUMNO + " INTEGER NOT NULL, "
-                        + COLUNM_ID_PAQUETE + " INTEGER NOT NULL,"
+                        + COLUNM_ID_PAQUETE + " INTEGER NOT NULL"
                         + ");";
 
     }
@@ -154,7 +166,7 @@ public class BaseHelper  extends SQLiteOpenHelper{
                         + "("
                         + COLUNM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                         + COLUNM_HORAS + " INTEGER NOT NULL, "
-                        + COLUNM_FECHA + " TEXT NOT NULL,"
+                        + COLUNM_FECHA + " TEXT NOT NULL"
                         + ");";
 
     }
@@ -168,8 +180,8 @@ public class BaseHelper  extends SQLiteOpenHelper{
                 "CREATE TABLE "
                         + TABLE_PAQUETE_MAESTRO
                         + "("
-                        + COLUNM_ID_PAQUETE + " INTEGER FOREIGN KEY, "
-                        + COLUNM_ID_MAESTRO + " INTEGER FOREIGN KEY,"
+                        + COLUNM_ID_PAQUETE + " INTEGER , "
+                        + COLUNM_ID_MAESTRO + " INTEGER "
                         + ");";
 
     }
@@ -183,8 +195,8 @@ public class BaseHelper  extends SQLiteOpenHelper{
                 "CREATE TABLE "
                         + TABLE_PAQUETE_MATERIA
                         + "("
-                        + COLUNM_ID_PAQUETE + " INTEGER FOREIGN KEY, "
-                        + COLUNM_ID_MATERIA + " INTEGER FOREIGN KEY,"
+                        + COLUNM_ID_PAQUETE + " INTEGER, "
+                        + COLUNM_ID_MATERIA + " INTEGER"
                         + ");";
 
     }
@@ -198,11 +210,12 @@ public class BaseHelper  extends SQLiteOpenHelper{
                 "CREATE TABLE "
                         + TABLE_PAQUETE_NIVEL
                         + "("
-                        + COLUNM_ID_PAQUETE + " INTEGER FOREIGN KEY, "
-                        + COLUNM_ID_NIVEL + " INTEGER FOREIGN KEY,"
+                        + COLUNM_ID_PAQUETE + " INTEGER, "
+                        + COLUNM_ID_NIVEL + " INTEGER"
                         + ");";
 
     }
+
 
     public BaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -212,15 +225,15 @@ public class BaseHelper  extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ALUMNOS_CREATE);
         db.execSQL(MAESTROS_CREATE);
-        db.execSQL(ALUMNO_MAESTROS_CREATE);
+//        db.execSQL(ALUMNO_MAESTROS_CREATE);
         db.execSQL(MATERIA_CREATE);
-        db.execSQL(MATERIAS_NIVELES_CREATE);
+//        db.execSQL(MATERIAS_NIVELES_CREATE);
         db.execSQL(NIVEL_CREATE);
-        db.execSQL(ALUMNO_PAQUETE_CREATE);
+//        db.execSQL(ALUMNO_PAQUETE_CREATE);
         db.execSQL(PAQUETE_CREATE);
-        db.execSQL(PAQUETE_MAESTRO_CREATE);
-        db.execSQL(PAQUETE_MATERIA_CREATE);
-        db.execSQL(PAQUETE_NIVEL_CREATE);
+//        db.execSQL(PAQUETE_MAESTRO_CREATE);
+//        db.execSQL(PAQUETE_MATERIA_CREATE);
+//        db.execSQL(PAQUETE_NIVEL_CREATE);
 
     }
 
@@ -228,28 +241,27 @@ public class BaseHelper  extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table alumnos");
         db.execSQL("drop table maestros");
-        db.execSQL("drop table alumnomaestros");
+//        db.execSQL("drop table alumnomaestros");
         db.execSQL("drop table materia");
-        db.execSQL("drop table materiasnivel");
+//        db.execSQL("drop table materiasnivel");
         db.execSQL("drop table nivel");
-        db.execSQL("drop table alumnopaquete");
+//        db.execSQL("drop table alumnopaquete");
         db.execSQL("drop table paquete");
-        db.execSQL("drop table paquetemaestro");
-        db.execSQL("drop table paquetemateria");
-        db.execSQL("drop table paquetenivel");
-
+//        db.execSQL("drop table paquetemaestro");
+//        db.execSQL("drop table paquetemateria");
+//        db.execSQL("drop table paquetenivel");
 
         db.execSQL(ALUMNOS_CREATE);
         db.execSQL(MAESTROS_CREATE);
-        db.execSQL(ALUMNO_MAESTROS_CREATE);
+//        db.execSQL(ALUMNO_MAESTROS_CREATE);
         db.execSQL(MATERIA_CREATE);
-        db.execSQL(MATERIAS_NIVELES_CREATE);
+//        db.execSQL(MATERIAS_NIVELES_CREATE);
         db.execSQL(NIVEL_CREATE);
-        db.execSQL(ALUMNO_PAQUETE_CREATE);
+//        db.execSQL(ALUMNO_PAQUETE_CREATE);
         db.execSQL(PAQUETE_CREATE);
-        db.execSQL(PAQUETE_MAESTRO_CREATE);
-        db.execSQL(PAQUETE_MATERIA_CREATE);
-        db.execSQL(PAQUETE_NIVEL_CREATE);
+//        db.execSQL(PAQUETE_MAESTRO_CREATE);
+//        db.execSQL(PAQUETE_MATERIA_CREATE);
+//        db.execSQL(PAQUETE_NIVEL_CREATE);
 
     }
 

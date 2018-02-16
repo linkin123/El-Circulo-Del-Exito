@@ -41,9 +41,12 @@
         <item>Psicología</item>
         <item>Estadistica</item>
         <item>Pensamiento Analítico</item>
+    </string-array>
 
+    <string-array name="alumnos">
 
     </string-array>
+
     <string name="title_activity_alta_maestros">AltaMaestrosActivity</string>
     <string name="buscar">buscar</string>
     <string name="action_settings">Settings</string>
@@ -75,6 +78,9 @@
     <string name="salir">registrar salida</string>
     <string name="entrar">registrar entrada</string>
     <string name="horario">Horario</string>
+    <string name="msj_sin_registros">no se encontraron alumnos</string>
+    <string name="buscar_alumno">buscar alumno</string>
+    <string name="buscar_maestro">buscar maestro</string>
 
 
 </resources>

@@ -55,69 +55,88 @@ public class MateriasAdapter extends RecyclerView.Adapter<MateriasAdapter.ItemVi
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(mcontext);
-                dialogo1.setTitle("Importante");
-                dialogo1.setMessage("¿ Elimina esta materia ?");
-                dialogo1.setCancelable(false);
-                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                        dialogo1.dismiss();
-                        list.remove(position);
-                        adapter.notifyDataSetChanged();
-                        adapter.notifyItemRemoved(position);
-                        materiasLinealAdapter.notifyDataSetChanged();
-                        Toast.makeText(mcontext , "elemento eliminado", Toast.LENGTH_LONG);
-                        int costoTotal = 0;
-                        for (int i = 0; i < list.size(); i++) {
-                            costoTotal += nivel * (list.get(i).getHoras() / 10);
-                        }
-                        AltaPaqueteActivity.etCostoTotal.setText(String.valueOf(costoTotal));
-                        if (AltaPaqueteActivity.etRegistroPago.length() > 0) {
-                            int pago = Integer.valueOf(String.valueOf(AltaPaqueteActivity.etRegistroPago.getText()));
-                            int costo = Integer.valueOf(String.valueOf(AltaPaqueteActivity.etCostoTotal.getText()));
-                            int diferencia = pago - costo;
-                            AltaPaqueteActivity.etDiferencia.setText(String.valueOf(diferencia));
-                        }
-                    }
-                });
-                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                    }
-                });
-                dialogo1.show();
-/*                System.out.println("click largo para eliminar");*/
-                /*lanzar dialog*/
+                mostrarAlertEliminar(position);
                 return false;
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] items = {"10", "20", "30" , "40" , "50" , "60" , "70" , "80" , "90" , "100"};
-
-                AlertDialog.Builder dialogo2 = new AlertDialog.Builder(v.getRootView().getContext());
-
-                dialogo2.setTitle("cambiar horas.")
-                        .setItems(items, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int item) {
-                                holder.horas.setText(  items[ item ] );
-                            /*cambiar paquete
-                            * tomar la materia que se selecciono del adapter
-                            * eliminar item de materiasAdapter
-                            * crear nuevo item en el adapter.
-                            * */
-
-                                Log.i("Dialog", "Op: " + items[item]);
-                            }
-                        });
-                dialogo2.show();
-                System.out.println("click corto para editar");
-                /*lanzar dialog*/
+                mostrarAlertEditarHoras(position, v, holder );
             }
         });
     }
 
+    private void mostrarAlertEditarHoras(int position, View v , ItemViewHolder h) {
+        final String[] items = {"10", "20", "30" , "40" , "50" , "60" , "70" , "80" , "90" , "100"};
+        AlertDialog.Builder dialogo2 = new AlertDialog.Builder(v.getRootView().getContext());
+
+        dialogo2.setTitle("cambiar horas.")
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        list.get(position).setHoras(Integer.parseInt(items[item ]));
+                        h.horas.setText("horas : " +   items[ item ] );
+                        materiasLinealAdapter.notifyDataSetChanged();
+                        cambiarCostos();
+                        Log.i("Dialog", "Op: " + items[item]);
+                    }
+                });
+        dialogo2.show();
+        System.out.println("click corto para editar");
+                /*lanzar dialog*/
+
+    }
+
+    private void mostrarAlertEliminar(int position) {
+        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(mcontext);
+        dialogo1.setTitle("Importante");
+        dialogo1.setMessage("¿ Elimina esta materia ?");
+        dialogo1.setCancelable(false);
+        dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                dialogo1.dismiss();
+                list.remove(position);
+                adapter.notifyDataSetChanged();
+                adapter.notifyItemRemoved(position);
+                materiasLinealAdapter.notifyDataSetChanged();
+                Toast.makeText(mcontext , "elemento eliminado", Toast.LENGTH_LONG);
+                cambiarCostos();
+            }
+        });
+        dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+            }
+        });
+        dialogo1.show();
+
+    }
+
+    private void cambiarCostos() {
+        int costoTotal = 0;
+        for (int i = 0; i < list.size(); i++) {
+            costoTotal += nivel * (list.get(i).getHoras() / 10);
+        }
+        AltaPaqueteActivity.etCostoTotal.setText(String.valueOf(costoTotal));
+        if (AltaPaqueteActivity.etRegistroPago.length() > 0) {
+            int pago;
+            if (AltaPaqueteActivity.etRegistroPago.length() > 0)
+                pago = Integer.valueOf(String.valueOf(AltaPaqueteActivity.etRegistroPago.getText()));
+            else
+                pago = 0;
+
+            int costo = Integer.valueOf(String.valueOf(AltaPaqueteActivity.etCostoTotal.getText()));
+            int diferencia = pago - costo;
+            if(diferencia < 0){
+                AltaPaqueteActivity.tvDiferencia.setText("debe : ");
+                diferencia = -1*diferencia;
+            }else
+                AltaPaqueteActivity.tvDiferencia.setText("cambio : ");
+
+            AltaPaqueteActivity.etDiferencia.setText("$"+String.valueOf(diferencia));
+
+        }
+    }
     @Override
     public int getItemCount() {
         return list.size();

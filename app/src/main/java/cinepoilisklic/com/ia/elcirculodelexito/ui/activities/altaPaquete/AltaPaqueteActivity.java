@@ -2,13 +2,14 @@ package cinepoilisklic.com.ia.elcirculodelexito.ui.activities.altaPaquete;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -17,7 +18,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,9 +32,10 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 
+import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Materia;
-import cinepoilisklic.com.ia.elcirculodelexito.R;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.opcionesAlumno.OpcionesActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasAdapter;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasLinealAdapter;
 
@@ -50,6 +51,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
     public static String EXTRA_ID = "id";
     private int idAlumno;
     public static  int nivel = 300;
+    private boolean aceptarRegistroSinPago = false;
 
     MateriasAdapter materiasAdapter;
     MateriasLinealAdapter materiasLinealAdapter;
@@ -64,6 +66,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
     public static EditText etCostoTotal;
     public static EditText etDiferencia;
     public static EditText etRegistroPago;
+    public static TextView tvDiferencia;
 
     public static List<Materia> list = new ArrayList<>();
     List<Materia> listMaterias = new ArrayList();
@@ -79,6 +82,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         btnRegistrarPaquete.setOnClickListener(onClickListener);
 
         nombreAlumno = (TextView) findViewById(R.id.tv_nombre_alumno);
+        tvDiferencia = (TextView) findViewById(R.id.tv_diferencia);
         recyclerView = (RecyclerView) findViewById(R.id.materias_recycler);
         recyclerViewPrecios = (RecyclerView) findViewById(R.id.materias_precio_recycler);
         spinnerMateria = (Spinner) findViewById(R.id.spiner_materias);
@@ -116,12 +120,22 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
     }
 
     private void setPrecioDiferencia() {
-        if (etRegistroPago.length() > 0) {
-            int pago = Integer.valueOf(String.valueOf(etRegistroPago.getText()));
-            int costo = Integer.valueOf(String.valueOf(etCostoTotal.getText()));
-            int diferencia = pago - costo;
-            etDiferencia.setText(String.valueOf(diferencia));
-        }
+        int pago;
+        if (etRegistroPago.length() > 0)
+            pago = Integer.valueOf(String.valueOf(etRegistroPago.getText()));
+        else
+            pago = 0;
+
+        int costo = Integer.valueOf(String.valueOf(etCostoTotal.getText()));
+        int diferencia = pago - costo;
+        if(diferencia < 0){
+            tvDiferencia.setText("debe : ");
+            diferencia = -1*diferencia;
+        }else
+            tvDiferencia.setText("cambio : ");
+
+        etDiferencia.setText("$"+String.valueOf(diferencia));
+
 
     }
 
@@ -143,6 +157,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         c.moveToFirst();
         setNameAlumno(c.getString(0));
         db.close();
+        c.close();
     }
 
     private void setNameAlumno(String nameAlumno) {
@@ -153,27 +168,60 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-
                 case R.id.btn_agregar_materia:
-                    addPaquete(spinnerMateria.getSelectedItemId() - 1, spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
-                    setPrecio();
-                    setPrecioDiferencia();
+                    if(!spinnerMateria.getSelectedItem().toString().equals("Materia"))
+                        if(!spinnerHoras.getSelectedItem().toString().equals("horas")){
+                            addPaquete(spinnerMateria.getSelectedItemId() - 1, spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
+                            setPrecio();
+                            setPrecioDiferencia();
+                        }
+                        else
+                            printToast(getApplicationContext() , "error : debe seleccionar número de horas");
+                    else
+                        printToast(getApplicationContext() , "error : debe seleccionar una materia");
+
+
                     break;
 
                 case R.id.btn_registrar_paquete:
                     if (camposNoEstanVacios()) {
-                        guardar(list);
+                        if( etRegistroPago.getText().length() == 0 )
+                            mostrarAlertPagoEnCero();
+                        else
+                            guardar(list);
                     }
+                    else
+                        Toast.makeText(getApplicationContext(), "error : debe agregar un paquete al menos", Toast.LENGTH_SHORT).show();
                     break;
 
             }
         }
     };
 
+    private void mostrarAlertPagoEnCero() {
+        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(AltaPaqueteActivity.this);
+        dialogo1.setTitle("Importante");
+        dialogo1.setMessage("¿ Seguro que quiere dar de alta sin pago inicial ?");
+        dialogo1.setCancelable(false);
+        dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                guardar(list);
+            }
+        });
+        dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+
+            }
+        });
+        dialogo1.show();
+    }
+
+
     private void guardar(List<Materia> listMaterias) {
-        BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
-        SQLiteDatabase db = helper.getWritableDatabase();
+/*        BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
+        SQLiteDatabase db = helper.getWritableDatabase();*/
         try {
+/*
             ContentValues c = new ContentValues();
             for (int i = 0; i < listMaterias.size(); i++) {
                 c.put("idAlumno", idAlumno);
@@ -187,7 +235,9 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
             //c.put("foto" , foto);
             db.insert("ALUMNOPAQUETES", null, c);
             db.close();
+*/
             Toast.makeText(this, "registro insersato", Toast.LENGTH_SHORT).show();
+            startActivity( new Intent(AltaPaqueteActivity.this , OpcionesActivity.class));
         } catch (Exception e) {
             Toast.makeText(this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -213,7 +263,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         if (materiasAdapter.getItemCount() > 0) {
             return true;
         }
-        return true;
+        return false;
     }
 
     private void addPaquete(long id, String Materia, String horas) {

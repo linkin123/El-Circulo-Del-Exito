@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
 
     <LinearLayout
+        android:id="@+id/layout_lista_alumnos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -16,9 +21,6 @@
             android:layout_above="@+id/audio_rv"
             android:hint="@string/buscar" />
 
-
-
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/audio_rv"
             android:background="@color/news_white"
@@ -29,5 +31,19 @@
             android:layout_margin="10dp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layout_msj"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:id="@+id/tv_msj_sin_registros"
+            android:text="@string/msj_sin_registros"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+</LinearLayout>
