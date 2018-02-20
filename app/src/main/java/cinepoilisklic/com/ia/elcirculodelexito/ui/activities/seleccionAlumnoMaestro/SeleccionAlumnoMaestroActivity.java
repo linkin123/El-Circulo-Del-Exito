@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -16,12 +17,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
+import cinepoilisklic.com.ia.elcirculodelexito.Utils.utils;
 import cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Alumno;
+import cinepoilisklic.com.ia.elcirculodelexito.data.models.Materia;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.altaPaquete.AltaPaqueteActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.AlumnosAdapter;
+import static cinepoilisklic.com.ia.elcirculodelexito.Utils.utils.*;
+
+import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasAdapter;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasLinealAdapter;
+import okhttp3.internal.Util;
 
 public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements AlumnosAdapter.onItemClickListener{
 
@@ -29,15 +38,20 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
     ArrayList<String> idMaestros;
     ArrayAdapter arrayAlumnos;
     ArrayAdapter arrayMaestros;
+    MateriasAdapter materiasAdapter;
     private int idAlumno;
     private int idMaestro;
     private Button btnInicioDeClase;
+    private Button btnBuscarMaestro;
+    private Button btnBuscarAlumno;
     private TextView tvNombreAlumno;
     private TextView tvNombreMaestro;
-    private EditText etFilterAlumno;
-    private EditText etFilterMaestro;
+    private EditText etId;
     private Spinner spAlumnos;
     private Spinner spMaestros;
+    private RecyclerView rvMateriasAlumno;
+    List<Materia> listMaterias = new ArrayList<>();
+    public static  int nivel = 300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +61,55 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
         btnInicioDeClase = (Button) findViewById(R.id.btn_inicio_clases_paquete);
         tvNombreAlumno = (TextView) findViewById(R.id.tv_nombre_alumno_inicioclase_paquete);
         tvNombreMaestro = (TextView) findViewById(R.id.tv_nombre_maestro_inicioclase_paquete);
-        etFilterAlumno = (EditText) findViewById(R.id.etSearchBox_alumMaestro);
-        etFilterMaestro = (EditText) findViewById(R.id.etSearchBox_maestroAlumno);
+        etId = (EditText) findViewById(R.id.etSearchBox_alumMaestro);
+        btnBuscarAlumno = (Button) findViewById(R.id.btn_buscar_alumno);
+        btnBuscarMaestro = (Button) findViewById(R.id.btn_buscar_maestro);
         spAlumnos = (Spinner) findViewById(R.id.spiner_alumnos);
         spMaestros = (Spinner) findViewById(R.id.spiner_maestros);
+        rvMateriasAlumno = (RecyclerView) findViewById(R.id.materias_recycler_iniciar_clase);
         populatePersons();
         arrays();
         setDatosPersons();
+        getIdText();
+    }
+
+    private void getIdText() {
+        btnBuscarAlumno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getPersonById( etId.getText().toString() , 1 ).length() > 0 ){
+                    tvNombreAlumno.setText( getPersonById( etId.getText().toString() , 1 ));
+                    getMaterias(etId.getText().toString());
+                }
+                else{
+                    tvNombreAlumno.setText( "id no encontrado !");
+                }
+
+            }
+        });
+        btnBuscarMaestro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( getPersonById( etId.getText().toString() , 0 ).length() > 0 )
+                    tvNombreMaestro.setText(getPersonById( etId.getText().toString() , 0 ) );
+                else
+                    tvNombreMaestro.setText("id no encontrado ! ");
+            }
+        });
+    }
+
+    private void getMaterias(String id) {
+        BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor c = db.rawQuery("select idMateria , horasRestantes , fecha from Paquete where idAlumno=" + id, null);
+        if(c.moveToFirst() ){
+            do{
+                System.out.println("id : " + c.getInt(0) + " imagen : " + utils.getImageMateria(utils.geMateriaById(c.getInt(0)))  + " materia : " + utils.geMateriaById(c.getInt(0)) + " horas : " + c.getInt(1) + " fecha : "+ c.getString(2));
+/*                listMaterias.add(new Materia(  ));*/
+            }while(c.moveToNext());
+        }
+        db.close();
+        c.close();
     }
 
     private void setDatosPersons() {
@@ -98,18 +154,26 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
     }
 
 
-    private int getPersonsById(String nombre){
+    private String getPersonById(String id , int persona){
+        String nombre="";
         String token = " - ";
+        String sql;
         BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
         SQLiteDatabase db = helper.getReadableDatabase();
-        int id=0;
-        String sqlAlumnos = "select id from Alumnos where nombre= '" + nombre + "'";
-        Cursor c = db.rawQuery(sqlAlumnos, null);
+        String[] args = new String[] {id};
+        if(persona == 1)
+            sql = "select nombre from Alumnos where id=?";
+        else
+            sql = "select nombre from Maestros where id=?";
+
+        Cursor c = db.rawQuery(sql, args);
         if (c.moveToFirst()) {
-            id = c.getInt(0);
+            nombre = c.getString(0);
         }
-         return id;
+         return nombre;
     }
+
+
     private void populatePersons() {
         idAlumns = new ArrayList<>();
         idAlumns.add("Alumnos");

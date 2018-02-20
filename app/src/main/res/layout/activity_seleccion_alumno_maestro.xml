@@ -9,14 +9,36 @@
     android:orientation="vertical"
     tools:context=".ui.activities.listaAlumnos.ListaAlumnosActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/etSearchBox_alumMaestro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EditTextFind"
+        android:layout_above="@+id/audio_rv"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="@string/id"
+        android:textAlignment="center"
+        android:textAllCaps="false" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:orientation="horizontal">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,15 +46,16 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etSearchBox_alumMaestro"
-                style="@style/EditTextFind"
-                android:layout_above="@+id/audio_rv"
-                android:layout_marginRight="22dp"
-                android:textAlignment="center"
-                android:layout_marginLeft="5dp"
-                android:hint="@string/buscar_alumno"
-                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_buscar_alumno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/btn"
+                android:text="buscar alumno"
+                android:textAllCaps="false"
+                android:textColor="@color/news_white" />
 
             <Spinner
                 android:id="@+id/spiner_alumnos"
@@ -44,33 +67,32 @@
 
             <ImageView
                 android:id="@+id/iv_alumn_maestro"
-                android:src="@drawable/alumnosz40"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                />
+                android:src="@drawable/alumnosz40" />
 
             <TextView
                 android:id="@+id/tv_name_maestroalumno"
-                android:textAllCaps="false"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"
-                android:text="Alumno"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Alumno"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"/>
+                android:layout_height="2dp" />
 
             <TextView
                 android:id="@+id/tv_nombre_alumno_inicioclase_paquete"
-                android:textAllCaps="false"
-                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="nombre apellido apellido2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textAlignment="center"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
@@ -81,15 +103,25 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <EditText
+<!--            <EditText
                 android:id="@+id/etSearchBox_maestroAlumno"
                 style="@style/EditTextFind"
-                android:textAlignment="center"
                 android:layout_above="@+id/audio_rv"
-                android:layout_marginRight="22dp"
-                android:layout_marginLeft="5dp"
-                android:hint="@string/buscar_maestro"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:hint="@string/maestro"
+                android:textAlignment="center"
                 android:textAllCaps="false" />
+-->
+            <Button
+                android:id="@+id/btn_buscar_maestro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/btn"
+                android:text="buscar maestro"
+                android:textAllCaps="false"
+                android:textColor="@color/news_white" />
 
             <Spinner
                 android:id="@+id/spiner_maestros"
@@ -100,33 +132,32 @@
 
             <ImageView
                 android:id="@+id/iv_maestro_alumno"
-                android:src="@drawable/professor_icon28"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                />
+                android:src="@drawable/professor_icon28" />
 
             <TextView
                 android:id="@+id/tv_name_alumnomaestro"
-                android:textAllCaps="false"
-                android:textSize="20sp"
-                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Maestro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"/>
+                android:layout_height="2dp" />
 
             <TextView
-                android:textAlignment="center"
                 android:id="@+id/tv_nombre_maestro_inicioclase_paquete"
-                android:layout_marginTop="10dp"
-                android:textAllCaps="false"
-                android:text="nombre apellido apellido2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="nombre apellido apellido2"
+                android:textAlignment="center"
+                android:textAllCaps="false" />
         </LinearLayout>
 
     </LinearLayout>
@@ -137,18 +168,19 @@
         android:layout_height="150dp"
         android:layout_margin="10dp"
         android:background="@drawable/recycler"
-        android:orientation="horizontal"> </android.support.v7.widget.RecyclerView>
+        android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
 
     <Button
         android:id="@+id/btn_inicio_clases_paquete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="@color/news_white"
         android:background="@drawable/btn"
         android:text="iniciar clase "
-        />
+        android:textColor="@color/news_white" />
 
 
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
 

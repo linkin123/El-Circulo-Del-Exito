@@ -9,8 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Alumnos.*;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Alumnos.COLUNM_ID;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Maestros.*;
+import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Materia.*;
 
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Materia.MATERIA_CREATE;
+import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Materia.TABLE_MATERIA;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.MateriasNiveles.MATERIAS_NIVELES_CREATE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Nivel.NIVEL_CREATE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.Paquete.PAQUETE_CREATE;
@@ -19,7 +21,7 @@ import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.P
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.PaqueteNivel.PAQUETE_NIVEL_CREATE;
 
 import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.AlumnoMaestros.ALUMNO_MAESTROS_CREATE;
-import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.AlumnoPaquete.ALUMNO_PAQUETE_CREATE;
+//import static cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper.AlumnoPaquete.ALUMNO_PAQUETE_CREATE;
 
 
 /**
@@ -80,11 +82,10 @@ public class BaseHelper  extends SQLiteOpenHelper{
                         + COLUNM_ID_ALUMNO + " INTEGER, "
                         + COLUNM_ID_MAESTRO + " INTEGER, "
                         + "FOREIGN KEY(" + COLUNM_ID_ALUMNO + ") "
-                        + "REFERENCE " + TABLE_ALUMNOS
+                        + "REFERENCES " + TABLE_ALUMNOS
                         + "(" + Alumnos.COLUNM_ID + "), "
-
                         + "FOREIGN KEY(" + COLUNM_ID_MAESTRO + ") "
-                        + "REFERENCE " + TABLE_MAESTROS
+                        + "REFERENCES " + TABLE_MAESTROS
                         + "(" + Maestros.COLUNM_ID + ") "
                         + ");";
 
@@ -135,7 +136,7 @@ public class BaseHelper  extends SQLiteOpenHelper{
 
     }
 
-    public static final class AlumnoPaquete{
+/*    public static final class AlumnoPaquete{
         public static String TABLE_ALUMNO_PAQUETE = "ALUMNOPAQUETE";
         public static String COLUNM_ID_ALUMNO = "idAlumno";
         public static String COLUNM_ID_PAQUETE = "idPaquete";
@@ -152,12 +153,15 @@ public class BaseHelper  extends SQLiteOpenHelper{
                         + COLUNM_ID_PAQUETE + " INTEGER NOT NULL"
                         + ");";
 
-    }
+    }*/
 
     public static final class Paquete{
         public static String TABLE_PAQUETE = "PAQUETE";
         public static String COLUNM_ID = "id";
-        public static String COLUNM_HORAS = "horas";
+        public static String COLUMN_ID_ALUMNO = "idAlumno";
+        public static String COLUMN_ID_MATERIA = "idMateria";
+        public static String COLUNM_HORAS_TOMADAS = "horasTomadas";
+        public static String COLUNM_HORAS_RESTANTES = "horasRestantes";
         public static String COLUNM_FECHA = "fecha";
 
         public static final String PAQUETE_CREATE =
@@ -165,10 +169,18 @@ public class BaseHelper  extends SQLiteOpenHelper{
                         + TABLE_PAQUETE
                         + "("
                         + COLUNM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                        + COLUNM_HORAS + " INTEGER NOT NULL, "
-                        + COLUNM_FECHA + " TEXT NOT NULL"
+                        + COLUMN_ID_MATERIA + " INTEGER, "
+                        + COLUMN_ID_ALUMNO + " INTEGER, "
+                        + COLUNM_HORAS_TOMADAS + " INTEGER, "
+                        + COLUNM_FECHA + " TEXT NOT NULL, "
+                        + COLUNM_HORAS_RESTANTES + " INTEGER NOT NULL, "
+                        + "FOREIGN KEY( " + COLUMN_ID_ALUMNO + ") "
+                        + "REFERENCES " + TABLE_ALUMNOS
+                        + "(" + Alumnos.COLUNM_ID + "), "
+                        + "FOREIGN KEY( " + COLUMN_ID_MATERIA + ") "
+                        + "REFERENCES " + TABLE_MATERIA
+                        + "(" + Materia.COLUNM_ID + ") "
                         + ");";
-
     }
 
     public static final class PaqueteMaestro{
@@ -225,7 +237,7 @@ public class BaseHelper  extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ALUMNOS_CREATE);
         db.execSQL(MAESTROS_CREATE);
-//        db.execSQL(ALUMNO_MAESTROS_CREATE);
+        db.execSQL(ALUMNO_MAESTROS_CREATE);
         db.execSQL(MATERIA_CREATE);
 //        db.execSQL(MATERIAS_NIVELES_CREATE);
         db.execSQL(NIVEL_CREATE);
@@ -241,7 +253,7 @@ public class BaseHelper  extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table alumnos");
         db.execSQL("drop table maestros");
-//        db.execSQL("drop table alumnomaestros");
+        db.execSQL("drop table alumnomaestros");
         db.execSQL("drop table materia");
 //        db.execSQL("drop table materiasnivel");
         db.execSQL("drop table nivel");

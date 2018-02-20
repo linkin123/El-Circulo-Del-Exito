@@ -259,6 +259,7 @@
                                     android:text="Registro de pago : " />
 
                                 <EditText
+                                    android:text="0"
                                     android:id="@+id/et_alta_paquete_registro_pago"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content" />

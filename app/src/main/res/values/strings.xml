@@ -79,8 +79,9 @@
     <string name="entrar">registrar entrada</string>
     <string name="horario">Horario</string>
     <string name="msj_sin_registros">no se encontraron alumnos</string>
-    <string name="buscar_alumno">buscar alumno</string>
-    <string name="buscar_maestro">buscar maestro</string>
+    <string name="alumno">alumno</string>
+    <string name="maestro">maestro</string>
+    <string name="id">id</string>
 
 
 </resources>

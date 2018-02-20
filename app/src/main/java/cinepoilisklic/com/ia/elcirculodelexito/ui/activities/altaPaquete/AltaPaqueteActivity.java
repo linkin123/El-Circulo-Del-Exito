@@ -30,17 +30,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
+import butterknife.internal.Utils;
 import cinepoilisklic.com.ia.elcirculodelexito.R;
+import cinepoilisklic.com.ia.elcirculodelexito.Utils.utils;
 import cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Materia;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.opcionesAlumno.OpcionesActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasAdapter;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasLinealAdapter;
 
-import static cinepoilisklic.com.ia.elcirculodelexito.Utils.utils.printToast;
+import static cinepoilisklic.com.ia.elcirculodelexito.Utils.utils.*;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.PREPARATORIA_PAQUETE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.PRIMARIA_PAQUETE;
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.SECUNDARIA_PAQUETE;
@@ -71,6 +77,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
     public static List<Materia> list = new ArrayList<>();
     List<Materia> listMaterias = new ArrayList();
+    HashMap<Integer , String> materiasMap = new HashMap<Integer , String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,6 +106,65 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         recibirDatos(savedInstanceState);
         checarCambio();
 
+
+    }
+
+    public int getIdOfMateria(String materia) {
+        int id = 0;
+        switch (materia) {
+            case "Administracion":
+                id = 1;
+                break;
+            case "Biología":
+                id = 2;
+                break;
+            case "Comprensión lectora":
+                id = 3;
+                break;
+            case "Economía":
+                id = 4;
+                break;
+            case "Español":
+                id = 5;
+                break;
+            case "Estadistica":
+                id = 6;
+                break;
+            case "Física":
+                id = 7;
+                break;
+            case "Geografía":
+                id = 8;
+                break;
+            case "Historia Universal":
+                id = 9;
+                break;
+            case "Historia de México":
+                id = 10;
+                break;
+            case "Ingles":
+                id = 11;
+                break;
+            case "Literatura":
+                id = 12;
+                break;
+            case "Matemáticas":
+                id = 13;
+                break;
+            case "Pensamiento Analítico":
+                id = 14;
+                break;
+            case "Psicología":
+                id = 15;
+                break;
+            case "Química":
+                id = 16;
+                break;
+            case "TICS":
+                id = 17;
+                break;
+        }
+        return id;
     }
 
     private void checarCambio() {
@@ -204,8 +270,6 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
                             else
                                 printToast(getApplicationContext() , "debe ingresar una cantidad numerica válida en registro de pago ");
                         }
-
-
                     }
                     else
                         Toast.makeText(getApplicationContext(), "error : debe agregar un paquete al menos", Toast.LENGTH_SHORT).show();
@@ -235,26 +299,28 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
 
     private void guardar(List<Materia> listMaterias) {
-/*        BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
-        SQLiteDatabase db = helper.getWritableDatabase();*/
+        for (Materia materia: listMaterias) {
+                materia.getNombre();
+        }
+        
+        BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
+        SQLiteDatabase db = helper.getWritableDatabase();
         try {
-/*
             ContentValues c = new ContentValues();
-            for (int i = 0; i < listMaterias.size(); i++) {
+            for (Materia materia : listMaterias) {
                 c.put("idAlumno", idAlumno);
-                c.put("idPaquete", listMaterias.get(i).getId());
-                c.put("tiempoAsesoria", 0);
-                c.put("tiempoRestante", listMaterias.get(i).getHoras());
-                System.out.println(listMaterias.get(i).getNombre() + "--" + listMaterias.get(i).getHoras() + "--" + listMaterias.get(i).getFecha());
-
+                c.put("idMateria", materia.getId());
+                c.put("horasTomadas", 0);
+                c.put("horasRestantes", materia.getHoras());
+                c.put("fecha" , materia.getFecha());
+                System.out.println(materia.getNombre() + "--" + materia.getHoras() + "--" + materia.getFecha());
             }
-
-            //c.put("foto" , foto);
-            db.insert("ALUMNOPAQUETES", null, c);
+            db.insert("PAQUETE", null, c);
             db.close();
-*/
-            Toast.makeText(this, "registro insersato", Toast.LENGTH_SHORT).show();
-            startActivity( new Intent(AltaPaqueteActivity.this , OpcionesActivity.class));
+
+
+            Toast.makeText(this, "registro insertado", Toast.LENGTH_SHORT).show();
+//            startActivity( new Intent(AltaPaqueteActivity.this , OpcionesActivity.class));
         } catch (Exception e) {
             Toast.makeText(this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -272,10 +338,6 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         etCostoTotal.setText(String.valueOf(costoTotal));
     }
 
-    private void insertarBDD() {
-
-    }
-
     private boolean camposNoEstanVacios() {
         if (materiasAdapter.getItemCount() > 0) {
             return true;
@@ -291,7 +353,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         String fecha = String.valueOf(monthDay + "/" + month + "/" + anio);
 
         if (!estaEnLista(id)) {
-            listMaterias.add(new Materia(id, getImageMateria(Materia), Materia, Integer.parseInt(horas), fecha));
+            listMaterias.add(new Materia(id, utils.getImageMateria(Materia), Materia, Integer.parseInt(horas), fecha));
             materiasAdapter.notifyDataSetChanged();
             materiasLinealAdapter.notifyDataSetChanged();
         } else {
@@ -310,10 +372,8 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
     public void initAdapters() {
         list = listMaterias;
-
         materiasLinealAdapter = new MateriasLinealAdapter(this, list, nivel);
         materiasAdapter = new MateriasAdapter(this, list, onClickListener, materiasLinealAdapter);
-
         recyclerViewPrecios.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
@@ -347,43 +407,6 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
     }
 
-    private int getImageMateria(String Materia) {
-        if (Materia.equals("Administración"))
-            return R.drawable.administracion;
-        if (Materia.equals("Biología"))
-            return R.drawable.biologiax;
-        if (Materia.equals("Comprensión Lectora"))
-            return R.drawable.comprension_lectora;
-        if (Materia.equals("Economía"))
-            return R.drawable.economia;
-        if (Materia.equals("Español"))
-            return R.drawable.espaniolx;
-        if (Materia.equals("Estadistica"))
-            return R.drawable.estadistica;
-        if (Materia.equals("Física"))
-            return R.drawable.fisica;
-        if (Materia.equals("Geografía"))
-            return R.drawable.geografiax;
-        if (Materia.equals("Historia Universal"))
-            return R.drawable.historia_universal;
-        if (Materia.equals("Historia de México"))
-            return R.drawable.hitoriamexicox;
-        if (Materia.equals("Inglés"))
-            return R.drawable.ingles;
-        if (Materia.equals("Literatura"))
-            return R.drawable.literaturax;
-        if (Materia.equals("Matemáticas"))
-            return R.drawable.matematicasx;
-        if (Materia.equals("Pensamiento Analítico"))
-            return R.drawable.pensamiento_analitico;
-        if (Materia.equals("Psicología"))
-            return R.drawable.psicologia;
-        if (Materia.equals("Química"))
-            return R.drawable.quimicax;
-
-
-        return 0;
-    }
 
 
     @Override

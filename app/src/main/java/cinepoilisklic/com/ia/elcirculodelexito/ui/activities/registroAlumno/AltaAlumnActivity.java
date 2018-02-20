@@ -155,7 +155,7 @@ public class AltaAlumnActivity extends AppCompatActivity {
             //c.put("foto" , foto);
             db.insert("ALUMNOS", null, c);
             db.close();
-            Toast.makeText(this, "registro insersato", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "registro insertado", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
