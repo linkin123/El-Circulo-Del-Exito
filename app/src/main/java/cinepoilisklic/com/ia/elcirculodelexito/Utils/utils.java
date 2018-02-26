@@ -56,40 +56,42 @@ public class utils {
     }
 
     public static int getImageMateria(int id) {
-        if (id==1)
-            return R.drawable.administracion;
-        if (id==2)
-            return R.drawable.biologiax;
-        if (id==3)
-            return R.drawable.comprension_lectora;
-        if (id==4)
-            return R.drawable.economia;
-        if (id==5)
-            return R.drawable.espaniolx;
-        if (id==6)
-            return R.drawable.estadistica;
-        if (id==7)
-            return R.drawable.fisica;
-        if (id==8)
-            return R.drawable.geografiax;
-        if (id==9)
-            return R.drawable.historia_universal;
-        if (id==10)
-            return R.drawable.hitoriamexicox;
-        if (id==11)
-            return R.drawable.ingles;
-        if (id==12)
+        if(id==0)
             return R.drawable.literaturax;
-        if (id==13)
+        if (id==1)
+            return R.drawable.historia_universal;
+        if (id==2)
+            return R.drawable.geografiax;
+        if (id==3)
+            return R.drawable.espaniolx;
+        if (id==4)
+            return R.drawable.hitoriamexicox;
+        if (id==5)
+            return R.drawable.biologiax;
+        if (id==6)
+            return R.drawable.quimicax;
+        if (id==7)
             return R.drawable.matematicasx;
+        if (id==8)
+            return R.drawable.fisica;
+        if (id==9)
+            return R.drawable.comprension_lectora;
+        if (id==10)
+            return R.drawable.ticsx;
+/*        if (id==11)
+            return R.drawable.derecho;*/
+        if (id==12)
+            return R.drawable.economia;
+        if (id==13)
+            return R.drawable.administracion;
         if (id==14)
-            return R.drawable.pensamiento_analitico;
+            return R.drawable.ingles;
         if (id==15)
             return R.drawable.psicologia;
         if (id==16)
-            return R.drawable.quimicax;
+            return R.drawable.estadistica;
         if (id==17)
-            return R.drawable.ticsx;
+            return R.drawable.pensamiento_analitico;
 
         return 0;
     }
