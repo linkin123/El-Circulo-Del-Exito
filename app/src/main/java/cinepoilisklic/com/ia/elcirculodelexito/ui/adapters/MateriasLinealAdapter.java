@@ -41,7 +41,7 @@ public class MateriasLinealAdapter extends RecyclerView.Adapter<MateriasLinealAd
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
         final Materia materia = list.get(position);
-        holder.nombre.setText("materia :" + materia.getNombre());
+        holder.nombre.setText("materia : " + materia.getNombre());
         holder.horas.setText(" horas : " + String.valueOf(materia.getHoras()));
         holder.precio.setText(" precio : $"+ nivel*(materia.getHoras()/10));
 

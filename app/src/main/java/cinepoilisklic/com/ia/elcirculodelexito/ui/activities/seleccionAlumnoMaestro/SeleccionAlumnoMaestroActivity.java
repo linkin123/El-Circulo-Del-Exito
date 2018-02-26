@@ -1,5 +1,6 @@
 package cinepoilisklic.com.ia.elcirculodelexito.ui.activities.seleccionAlumnoMaestro;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -79,7 +80,19 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
             public void onClick(View v) {
                 if(getPersonById( etId.getText().toString() , 1 ).length() > 0 ){
                     tvNombreAlumno.setText( getPersonById( etId.getText().toString() , 1 ));
-                    getMaterias(etId.getText().toString());
+                    /*buscar persona en bdd*/
+                    BaseHelper helper = new BaseHelper(getApplicationContext(), "Demo" , null , 1);
+                    SQLiteDatabase db = helper.getReadableDatabase();
+                    String sql = "select id ,  idMateria , horasTomadas , horasRestantes from paquete where idAlumno="+etId.getText().toString();
+                    Cursor c = db.rawQuery( sql , null);
+                    if(c.moveToFirst()){
+                        do{
+                            System.out.println(" id : "+ c.getInt(0) + " idMateria : " + c.getInt(1) + " -horasTomadas : "+ c.getInt(2) + " horasRestantes : "+ c.getInt(3) );
+/*                            listMaterias.add( new Alumno( c.getInt(0) , c.getString(1) , c.getString(2) , c.getString(3) ) );*/
+                        }while( c.moveToNext());
+                    }
+                    db.close();
+
                 }
                 else{
                     tvNombreAlumno.setText( "id no encontrado !");

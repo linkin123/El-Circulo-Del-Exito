@@ -136,10 +136,11 @@ public class BaseHelper  extends SQLiteOpenHelper{
 
     }
 
-/*    public static final class AlumnoPaquete{
+/*
+    public static final class AlumnoPaquete{
         public static String TABLE_ALUMNO_PAQUETE = "ALUMNOPAQUETE";
         public static String COLUNM_ID_ALUMNO = "idAlumno";
-        public static String COLUNM_ID_PAQUETE = "idPaquete";
+        public static String COLUNM_ID_MATERIA = "idPaquete";
         public static String COLUNM_TIEMPO_ASESORIA = "tiempoAsesoria";
         public static String COLUNM_TIEMPO_RESTANTE = "tiempoRestante";
 
@@ -147,13 +148,14 @@ public class BaseHelper  extends SQLiteOpenHelper{
                 "CREATE TABLE "
                         + TABLE_ALUMNO_PAQUETE
                         + "("
-                        + COLUNM_ID_ALUMNO + " INTEGER, "
-                        + COLUNM_ID_PAQUETE + " INTEGER,"
                         + COLUNM_ID_ALUMNO + " INTEGER NOT NULL, "
-                        + COLUNM_ID_PAQUETE + " INTEGER NOT NULL"
+                        + COLUNM_ID_MATERIA + " INTEGER NOT NULL, "
+                        + COLUNM_TIEMPO_ASESORIA + " REAL NOT NULL, "
+                        + COLUNM_TIEMPO_RESTANTE + " REAL NOT NULL"
                         + ");";
 
-    }*/
+    }
+*/
 
     public static final class Paquete{
         public static String TABLE_PAQUETE = "PAQUETE";
@@ -169,8 +171,8 @@ public class BaseHelper  extends SQLiteOpenHelper{
                         + TABLE_PAQUETE
                         + "("
                         + COLUNM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                        + COLUMN_ID_MATERIA + " INTEGER, "
                         + COLUMN_ID_ALUMNO + " INTEGER, "
+                        + COLUMN_ID_MATERIA + " INTEGER, "
                         + COLUNM_HORAS_TOMADAS + " INTEGER, "
                         + COLUNM_FECHA + " TEXT NOT NULL, "
                         + COLUNM_HORAS_RESTANTES + " INTEGER NOT NULL, "
@@ -241,7 +243,6 @@ public class BaseHelper  extends SQLiteOpenHelper{
         db.execSQL(MATERIA_CREATE);
 //        db.execSQL(MATERIAS_NIVELES_CREATE);
         db.execSQL(NIVEL_CREATE);
-//        db.execSQL(ALUMNO_PAQUETE_CREATE);
         db.execSQL(PAQUETE_CREATE);
 //        db.execSQL(PAQUETE_MAESTRO_CREATE);
 //        db.execSQL(PAQUETE_MATERIA_CREATE);
@@ -257,7 +258,6 @@ public class BaseHelper  extends SQLiteOpenHelper{
         db.execSQL("drop table materia");
 //        db.execSQL("drop table materiasnivel");
         db.execSQL("drop table nivel");
-//        db.execSQL("drop table alumnopaquete");
         db.execSQL("drop table paquete");
 //        db.execSQL("drop table paquetemaestro");
 //        db.execSQL("drop table paquetemateria");
@@ -269,7 +269,6 @@ public class BaseHelper  extends SQLiteOpenHelper{
         db.execSQL(MATERIA_CREATE);
 //        db.execSQL(MATERIAS_NIVELES_CREATE);
         db.execSQL(NIVEL_CREATE);
-//        db.execSQL(ALUMNO_PAQUETE_CREATE);
         db.execSQL(PAQUETE_CREATE);
 //        db.execSQL(PAQUETE_MAESTRO_CREATE);
 //        db.execSQL(PAQUETE_MATERIA_CREATE);

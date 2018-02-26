@@ -57,7 +57,7 @@ tools:context=".ui.activities.registroAlumno.AltaAlumnActivity">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nombre del Alumno : " />
+                        android:text="@string/nombre_alumno" />
 
                     <EditText
                         android:id="@+id/et_alta_alumno_nombre"
@@ -73,7 +73,7 @@ tools:context=".ui.activities.registroAlumno.AltaAlumnActivity">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="nombre del padre o tutor : " />
+                        android:text="@string/nombre_padre"/>
 
                     <EditText
                         android:id="@+id/et_alta_alumno_nombre_padre"
@@ -89,7 +89,7 @@ tools:context=".ui.activities.registroAlumno.AltaAlumnActivity">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="telefono del padre o tutor : " />
+                        android:text="@string/telefono_padre" />
 
                     <EditText
                         android:id="@+id/et_alta_alumno_telefono_padre"

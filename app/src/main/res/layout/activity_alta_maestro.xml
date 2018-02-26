@@ -28,7 +28,7 @@
                 android:padding="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/alumnosz40" />
+                android:src="@drawable/professor_icon28" />
 
             <ImageButton
                 android:id="@+id/ib_camera_maestro"
@@ -57,7 +57,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nombre del Maestro : " />
+                            android:text="@string/nombre_maestro" />
 
                         <EditText
                             android:id="@+id/et_alta_maestro_nombre"
@@ -73,7 +73,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Domicilio : " />
+                            android:text="@string/domicilio" />
 
                         <EditText
                             android:id="@+id/et_alta_maestro_domicilio"
@@ -89,7 +89,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="telefono del maestro : " />
+                            android:text="@string/telefono_maestro" />
 
                         <EditText
                             android:id="@+id/et_alta_maestro_telefono"

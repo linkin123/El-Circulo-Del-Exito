@@ -5,17 +5,23 @@ package cinepoilisklic.com.ia.elcirculodelexito.data.models;
  */
 
 public class Maestro {
-    int id;
-    String nombre;
-    String telefono;
-    int foto;
+    private String horario;
+    private int id;
+    private String nombre;
+    private String telefono;
+    private String domicilio;
 
-    public Maestro(int id, String nombre, String telefono, int foto) {
+/*    private final int foto;*/
+
+    public Maestro(int id, String nombre, String domicilio, String telefono , String horario /*, int foto*/) {
         this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
-        this.foto = foto;
+        this.domicilio = domicilio;
+        this.horario = horario;
+/*        this.foto = foto;*/
     }
+
 
     public int getId() {
         return id;
@@ -33,6 +39,14 @@ public class Maestro {
         this.nombre = nombre;
     }
 
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(String domicilio) {
+        this.domicilio = domicilio;
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -41,11 +55,19 @@ public class Maestro {
         this.telefono = telefono;
     }
 
-    public int getFoto() {
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    /*    public int getFoto() {
         return foto;
     }
 
     public void setFoto(int foto) {
         this.foto = foto;
-    }
+    }*/
 }

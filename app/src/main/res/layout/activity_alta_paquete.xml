@@ -38,7 +38,6 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:layout_weight="60"
                     android:orientation="vertical">
 
@@ -75,84 +74,107 @@
                             android:gravity="center"
                             android:text="Nivel" />
 
-
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center"
                             android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:id="@+id/rbtn_primaria"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rbtn_top_left"
+                                    android:button="@null"
+                                    android:checked="true"
+                                    android:fontFamily="bold"
+                                    android:gravity="center_horizontal"
+                                    android:padding="5dp"
+                                    android:text="@string/Primaria"
+                                    android:textColor="@drawable/news_rbtn_textcolor_selector"
+                                    android:textSize="13dp" />
+
+                                <RadioButton
+                                    android:id="@+id/rbtn_secundaria"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rbtn_bottom_left"
+                                    android:button="@null"
+                                    android:fontFamily="bold"
+                                    android:gravity="center_horizontal"
+                                    android:padding="5dp"
+                                    android:text="Secundaria"
+                                    android:textColor="@drawable/news_rbtn_textcolor_selector"
+                                    android:textSize="13dp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:id="@+id/rbtn_prepa"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rbtn_top_rigth"
+                                    android:button="@null"
+                                    android:fontFamily="bold"
+                                    android:gravity="center_horizontal"
+                                    android:padding="5dp"
+                                    android:text="Preparatoria"
+                                    android:textColor="@drawable/news_rbtn_textcolor_selector"
+                                    android:textSize="13dp" />
+
+                                <RadioButton
+                                    android:id="@+id/rbtn_universidad"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rbtn_bottom_rigth"
+                                    android:button="@null"
+                                    android:fontFamily="bold"
+                                    android:gravity="center_horizontal"
+                                    android:padding="5dp"
+                                    android:text="Universidad"
+                                    android:textColor="@drawable/news_rbtn_textcolor_selector"
+                                    android:textSize="13dp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
-                        <RadioGroup
+
+
+<!--                        <RadioGroup
                             android:id="@+id/rg_nivel"
                             android:layout_width="match_parent"
                             android:layout_height="27dp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:orientation="horizontal">
+-->
 
-                            <RadioButton
-                                android:id="@+id/rbtn_primaria"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/news_rbtn_selector"
-                                android:button="@null"
-                                android:checked="true"
-                                android:fontFamily="bold"
-                                android:gravity="center_horizontal"
-                                android:padding="5dp"
-                                android:text="Primaria"
-                                android:textColor="@drawable/news_rbtn_textcolor_selector"
-                                android:textSize="13dp" />
 
-                            <RadioButton
-                                android:id="@+id/rbtn_secundaria"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/news_rbtn_selector_ni_centro"
-                                android:button="@null"
-                                android:fontFamily="bold"
-                                android:gravity="center_horizontal"
-                                android:padding="5dp"
-                                android:text="Secundaria"
-                                android:textColor="@drawable/news_rbtn_textcolor_selector"
-                                android:textSize="13dp" />
 
-                            <RadioButton
-                                android:id="@+id/rbtn_prepa"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/news_rbtn_selector_ni_centro"
-                                android:button="@null"
-                                android:fontFamily="bold"
-                                android:gravity="center_horizontal"
-                                android:padding="5dp"
-                                android:text="Preparatoria"
-                                android:textColor="@drawable/news_rbtn_textcolor_selector"
-                                android:textSize="13dp" />
-
-                            <RadioButton
-                                android:id="@+id/rbtn_universidad"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/news_rbtn_selector_ni"
-                                android:button="@null"
-                                android:fontFamily="bold"
-                                android:gravity="center_horizontal"
-                                android:padding="5dp"
-                                android:text="Universidad"
-                                android:textColor="@drawable/news_rbtn_textcolor_selector"
-                                android:textSize="13dp" />
-
-                        </RadioGroup>
 
                     </LinearLayout>
 

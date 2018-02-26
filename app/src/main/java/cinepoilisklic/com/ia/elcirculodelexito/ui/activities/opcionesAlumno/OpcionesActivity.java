@@ -21,9 +21,7 @@ public class OpcionesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opciones);
 
         btnRegistro = (Button) findViewById(R.id.opciones_btn_entrar_a_clases);
-
         btnRegistro.setOnClickListener(onClickListener);
-
         btnAltaPaquete = (Button)findViewById(R.id.opciones_btn_alta_paquete);
         btnAltaPaquete.setOnClickListener(onClickListener);
     }

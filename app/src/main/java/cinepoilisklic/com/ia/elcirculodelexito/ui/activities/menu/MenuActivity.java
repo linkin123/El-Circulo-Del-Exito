@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.listaAlumnos.ListaAlumnosActivity;
+import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.listaMaestros.ListaMaestrosActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.opcionesAlumno.OpcionesActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.registroAlumno.AltaAlumnActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.registroMaestro.AltaMaestroActivity;
@@ -19,55 +20,55 @@ public class MenuActivity extends AppCompatActivity {
     private ImageButton btnAltaAlumno;
     private ImageButton btnAltaMaestro;
     private ImageButton btnReporteAlumno;
-    private  ImageButton btnReporteMaestro;
+    private ImageButton btnReporteMaestro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        btnAsesoriaTiempo = (ImageButton)findViewById(R.id.asesoria_tiempo);
+        btnAsesoriaTiempo = (ImageButton) findViewById(R.id.asesoria_tiempo);
         btnAsesoriaTiempo.setOnClickListener(onClickListener);
 
-        btnAsesoriaPaquete = (ImageButton)findViewById(R.id.asesoria_paquete);
+        btnAsesoriaPaquete = (ImageButton) findViewById(R.id.asesoria_paquete);
         btnAsesoriaPaquete.setOnClickListener(onClickListener);
 
-        btnAltaAlumno = (ImageButton)findViewById(R.id.alumno);
+        btnAltaAlumno = (ImageButton) findViewById(R.id.alumno);
         btnAltaAlumno.setOnClickListener(onClickListener);
 
-        btnAltaMaestro = (ImageButton)findViewById(R.id.maestro);
+        btnAltaMaestro = (ImageButton) findViewById(R.id.maestro);
         btnAltaMaestro.setOnClickListener(onClickListener);
 
-        btnReporteAlumno = (ImageButton)findViewById(R.id.reporte_alumno);
+        btnReporteAlumno = (ImageButton) findViewById(R.id.reporte_alumno);
         btnReporteAlumno.setOnClickListener(onClickListener);
 
-        btnReporteMaestro = (ImageButton)findViewById(R.id.reporte_maestro);
+        btnReporteMaestro = (ImageButton) findViewById(R.id.reporte_maestro);
         btnReporteMaestro.setOnClickListener(onClickListener);
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
 
                 case R.id.alumno:
-                   Intent intentAltaAlumno = new Intent(MenuActivity.this , AltaAlumnActivity.class);
-                    startActivity(intentAltaAlumno);
+                    startActivity(new Intent(MenuActivity.this, AltaAlumnActivity.class));
                     break;
 
                 case R.id.reporte_alumno:
-                    Intent intentReporteAlumno = new Intent(MenuActivity.this , ListaAlumnosActivity.class);
-                    startActivity(intentReporteAlumno);
+                    startActivity(new Intent(MenuActivity.this, ListaAlumnosActivity.class));
                     break;
 
                 case R.id.asesoria_paquete:
-                    Intent intentAsesoriaPaquete = new Intent(MenuActivity.this , OpcionesActivity.class);
-                    startActivity(intentAsesoriaPaquete);
+                    startActivity(new Intent(MenuActivity.this, OpcionesActivity.class));
                     break;
 
                 case R.id.maestro:
-                    Intent intentAltaMaestro = new Intent(MenuActivity.this , AltaMaestroActivity.class);
-                    startActivity(intentAltaMaestro);
+                    startActivity(new Intent(MenuActivity.this, AltaMaestroActivity.class));
+                    break;
+
+                case R.id.reporte_maestro:
+                    startActivity(new Intent(MenuActivity.this , ListaMaestrosActivity.class));
                     break;
             }
         }

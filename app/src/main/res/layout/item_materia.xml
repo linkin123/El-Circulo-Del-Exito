@@ -48,7 +48,6 @@
                         android:id="@+id/nombre_materia_cardview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:text="nombre"
                         android:textSize="15sp"
 

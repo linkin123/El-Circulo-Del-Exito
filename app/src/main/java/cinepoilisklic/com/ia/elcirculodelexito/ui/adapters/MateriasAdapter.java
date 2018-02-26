@@ -48,9 +48,9 @@ public class MateriasAdapter extends RecyclerView.Adapter<MateriasAdapter.ItemVi
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
         final Materia materia = list.get(position);
-        holder.nombre.setText("materia :" + materia.getNombre());
-        holder.horas.setText("horas " + String.valueOf(materia.getHoras()));
-        holder.fecha.setText("caduca :" + materia.getFecha());
+        holder.nombre.setText("materia : " + materia.getNombre());
+        holder.horas.setText("horas : " + String.valueOf(materia.getHoras()));
+        holder.fecha.setText("caduca : " + materia.getFecha());
         holder.image.setImageResource(materia.getImagen());
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

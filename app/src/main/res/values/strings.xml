@@ -75,13 +75,20 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="salir">registrar salida</string>
-    <string name="entrar">registrar entrada</string>
+    <string name="salir">Registrar Salida</string>
+    <string name="entrar">Registrar Entrada</string>
     <string name="horario">Horario</string>
-    <string name="msj_sin_registros">no se encontraron alumnos</string>
-    <string name="alumno">alumno</string>
-    <string name="maestro">maestro</string>
+    <string name="msj_sin_registros">No se encontraron alumnos</string>
+    <string name="alumno">Alumno</string>
+    <string name="maestro">Maestro</string>
     <string name="id">id</string>
+    <string name="nombre_padre">Nombre del Padre ó Tutor :</string>
+    <string name="telefono_padre">Teléfono del Padre ó Tutor :</string>
+    <string name="nombre_alumno">Nombre del Alumno :</string>
+    <string name="nombre_maestro">Nombre del Maestro  :</string>
+    <string name="telefono_maestro">Teléfono del Maestro :</string>
+    <string name="domicilio">Domicilio :</string>
+    <string name="Primaria">Primaria</string>
 
 
 </resources>

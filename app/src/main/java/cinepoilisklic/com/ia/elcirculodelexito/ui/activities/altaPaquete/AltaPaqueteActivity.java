@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,6 +43,7 @@ import butterknife.internal.Utils;
 import cinepoilisklic.com.ia.elcirculodelexito.R;
 import cinepoilisklic.com.ia.elcirculodelexito.Utils.utils;
 import cinepoilisklic.com.ia.elcirculodelexito.data.database.BaseHelper;
+import cinepoilisklic.com.ia.elcirculodelexito.data.models.Alumno;
 import cinepoilisklic.com.ia.elcirculodelexito.data.models.Materia;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.activities.opcionesAlumno.OpcionesActivity;
 import cinepoilisklic.com.ia.elcirculodelexito.ui.adapters.MateriasAdapter;
@@ -53,7 +56,7 @@ import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.SECUNDARIA_PA
 import static cinepoilisklic.com.ia.elcirculodelexito.data.Niveles.UNIVERSIDAD_PAQUETE;
 
 
-public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class AltaPaqueteActivity extends AppCompatActivity {
 
     public static String EXTRA_ID = "id";
     private int idAlumno;
@@ -70,14 +73,20 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
     Spinner spinnerMateria;
     Spinner spinnerHoras;
     RadioGroup rgNivel;
+
+    public static RadioButton rbtnPrimaria;
+    public static RadioButton rbtnSecundaria;
+    public static RadioButton rbtnPreparatoria;
+    public static RadioButton rbtnUniversidad;
+
     public static EditText etCostoTotal;
     public static EditText etDiferencia;
     public static EditText etRegistroPago;
     public static TextView tvDiferencia;
 
-    public static List<Materia> list = new ArrayList<>();
+/*    public static List<Materia> list = new ArrayList<>();*/
     List<Materia> listMaterias = new ArrayList();
-    HashMap<Integer , String> materiasMap = new HashMap<Integer , String>();
+/*    HashMap<Integer , String> materiasMap = new HashMap<Integer , String>();*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,14 +107,35 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         etCostoTotal = (EditText) findViewById(R.id.et_alta_paquete_costo_total);
         etDiferencia = (EditText) findViewById(R.id.et_alta_paquete_diferencia);
         etRegistroPago = (EditText) findViewById(R.id.et_alta_paquete_registro_pago);
-        rgNivel = (RadioGroup) findViewById(R.id.rg_nivel);
-        rgNivel.setOnCheckedChangeListener(this);
 
-        initAdapters();
+        rbtnPrimaria = (RadioButton) findViewById(R.id.rbtn_primaria);
+        rbtnSecundaria = (RadioButton) findViewById(R.id.rbtn_secundaria);
+        rbtnPreparatoria = (RadioButton) findViewById(R.id.rbtn_prepa);
+        rbtnUniversidad = (RadioButton) findViewById(R.id.rbtn_universidad);
+        rbtnPrimaria.setOnClickListener(onClickListener);
+        rbtnSecundaria.setOnClickListener(onClickListener);
+        rbtnPreparatoria.setOnClickListener(onClickListener);
+        rbtnUniversidad.setOnClickListener(onClickListener);
+
         setdataSpinnersPaquete();
         recibirDatos(savedInstanceState);
+        initAdapters();
         checarCambio();
 
+
+    }
+
+    private void consultarMateriasAlumno(int idAlumno) {
+        BaseHelper helper = new BaseHelper( this, "Demo" , null , 1);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String sql = "select idMateria , horasTomadas, horasRestantes , fecha from paquete where idAlumno="+ idAlumno;
+        Cursor c = db.rawQuery( sql , null);
+        if(c.moveToFirst()){
+            do{
+                listMaterias.add( new Materia( c.getLong(0) , utils.getImageMateria(c.getInt(0)) , utils.geMateriaById(c.getInt(0)) , Integer.parseInt(c.getString(2)) , c.getString(3)) );
+            }while( c.moveToNext());
+        }
+        db.close();
 
     }
 
@@ -223,6 +253,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
             if (intent.hasExtra(EXTRA_ID)) {
                 idAlumno = intent.getIntExtra(EXTRA_ID, 1);
                 consultarAlumno(idAlumno);
+                consultarMateriasAlumno(idAlumno);
             }
         }
     }
@@ -241,43 +272,6 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         nombreAlumno.setText(nameAlumno);
     }
 
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_agregar_materia:
-                    if(!spinnerMateria.getSelectedItem().toString().equals("Materia"))
-                        if(!spinnerHoras.getSelectedItem().toString().equals("horas")){
-                            addPaquete(spinnerMateria.getSelectedItemId() - 1, spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
-                            setPrecio();
-                            setPrecioDiferencia();
-                        }
-                        else
-                            printToast(getApplicationContext() , "error : debe seleccionar número de horas");
-                    else
-                        printToast(getApplicationContext() , "error : debe seleccionar una materia");
-
-
-                    break;
-                case R.id.btn_registrar_paquete:
-                    if (camposNoEstanVacios()) {
-                        if( etRegistroPago.getText().length() == 0 )
-                            mostrarAlertPagoEnCero();
-                        else{
-                            if(TextUtils.isDigitsOnly( etRegistroPago.getText())  ){
-                                guardar(list);
-                            }
-                            else
-                                printToast(getApplicationContext() , "debe ingresar una cantidad numerica válida en registro de pago ");
-                        }
-                    }
-                    else
-                        Toast.makeText(getApplicationContext(), "error : debe agregar un paquete al menos", Toast.LENGTH_SHORT).show();
-                    break;
-
-            }
-        }
-    };
 
     private void mostrarAlertPagoEnCero() {
         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(AltaPaqueteActivity.this);
@@ -286,7 +280,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
         dialogo1.setCancelable(false);
         dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-                guardar(list);
+                guardar(listMaterias);
             }
         });
         dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -299,10 +293,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
 
     private void guardar(List<Materia> listMaterias) {
-        for (Materia materia: listMaterias) {
-                materia.getNombre();
-        }
-        
+
         BaseHelper helper = new BaseHelper(this, "Demo", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
         try {
@@ -319,7 +310,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
             db.close();
 
 
-            Toast.makeText(this, "registro insertado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
 //            startActivity( new Intent(AltaPaqueteActivity.this , OpcionesActivity.class));
         } catch (Exception e) {
             Toast.makeText(this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -331,8 +322,8 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
     private void setPrecio() {
         int costoTotal = 0;
-        for (int i = 0; i < list.size(); i++) {
-            costoTotal += nivel * (list.get(i).getHoras() / 10);
+        for (int i = 0; i < listMaterias.size(); i++) {
+            costoTotal += nivel * (listMaterias.get(i).getHoras() / 10);
         }
 
         etCostoTotal.setText(String.valueOf(costoTotal));
@@ -356,6 +347,7 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
             listMaterias.add(new Materia(id, utils.getImageMateria(Materia), Materia, Integer.parseInt(horas), fecha));
             materiasAdapter.notifyDataSetChanged();
             materiasLinealAdapter.notifyDataSetChanged();
+
         } else {
             Toast.makeText(this, "Este paquete ya fue seleccionado", Toast.LENGTH_SHORT).show();
         }
@@ -371,9 +363,9 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
 
     public void initAdapters() {
-        list = listMaterias;
-        materiasLinealAdapter = new MateriasLinealAdapter(this, list, nivel);
-        materiasAdapter = new MateriasAdapter(this, list, onClickListener, materiasLinealAdapter);
+/*        list = listMaterias;*/
+        materiasLinealAdapter = new MateriasLinealAdapter(this, listMaterias, nivel);
+        materiasAdapter = new MateriasAdapter(this, listMaterias, onClickListener, materiasLinealAdapter);
         recyclerViewPrecios.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
@@ -407,38 +399,80 @@ public class AltaPaqueteActivity extends AppCompatActivity implements RadioGroup
 
     }
 
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.rbtn_primaria:
+                    nivel = PRIMARIA_PAQUETE;
+                    operaciones();
+                    rbtnPrimaria.setChecked(true);
+                    rbtnSecundaria.setChecked(false);
+                    rbtnPreparatoria.setChecked(false);
+                    rbtnUniversidad.setChecked(false);
+                    break;
+                case R.id.rbtn_secundaria:
+                    nivel = SECUNDARIA_PAQUETE;
+                    operaciones();
+                    rbtnPrimaria.setChecked(false);
+                    rbtnSecundaria.setChecked(true);
+                    rbtnPreparatoria.setChecked(false);
+                    rbtnUniversidad.setChecked(false);
+                    break;
+                case R.id.rbtn_prepa:
+                    nivel = PREPARATORIA_PAQUETE;
+                    operaciones();
+                    rbtnPrimaria.setChecked(false);
+                    rbtnSecundaria.setChecked(false);
+                    rbtnPreparatoria.setChecked(true);
+                    rbtnUniversidad.setChecked(false);
+                    break;
+                case R.id.rbtn_universidad:
+                    nivel = UNIVERSIDAD_PAQUETE;
+                    rbtnPrimaria.setChecked(false);
+                    rbtnSecundaria.setChecked(false);
+                    rbtnPreparatoria.setChecked(false);
+                    rbtnUniversidad.setChecked(true);
+                    operaciones();
+                    break;
+                case R.id.btn_agregar_materia:
+                    if(!spinnerMateria.getSelectedItem().toString().equals("Materia"))
+                        if(!spinnerHoras.getSelectedItem().toString().equals("horas")){
+                            addPaquete(spinnerMateria.getSelectedItemId() - 1, spinnerMateria.getSelectedItem().toString(), spinnerHoras.getSelectedItem().toString());
+                            setPrecio();
+                            setPrecioDiferencia();
+                        }
+                        else
+                            printToast(getApplicationContext() , "error : debe seleccionar número de horas");
+                    else
+                        printToast(getApplicationContext() , "error : debe seleccionar una materia");
+                    break;
+                case R.id.btn_registrar_paquete:
+                    if (camposNoEstanVacios()) {
+                        if( etRegistroPago.getText().length() == 0 )
+                            mostrarAlertPagoEnCero();
+                        else{
+                            if(TextUtils.isDigitsOnly( etRegistroPago.getText())  ){
+                                guardar(listMaterias);
+                            }
+                            else
+                                printToast(getApplicationContext() , "debe ingresar una cantidad numerica válida en registro de pago ");
+                        }
+                    }
+                    else
+                        Toast.makeText(getApplicationContext(), "error : debe agregar un paquete al menos", Toast.LENGTH_SHORT).show();
+                    break;
 
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.rbtn_primaria:
-                nivel = PRIMARIA_PAQUETE;
-                setPrecio();
-                setPrecioDiferencia();
-                initAdapters();
-                break;
-            case R.id.rbtn_secundaria:
-                nivel = SECUNDARIA_PAQUETE;
-                setPrecio();
-                setPrecioDiferencia();
-                initAdapters();
-                break;
-            case R.id.rbtn_prepa:
-                nivel = PREPARATORIA_PAQUETE;
-                setPrecio();
-                setPrecioDiferencia();
-                initAdapters();
-                break;
-            case R.id.rbtn_universidad:
-                nivel = UNIVERSIDAD_PAQUETE;
-                setPrecio();
-                setPrecioDiferencia();
-                initAdapters();
-                break;
-
+            }
         }
+    };
+
+    private void operaciones() {
+        setPrecio();
+        setPrecioDiferencia();
+        initAdapters();
     }
+
 
 
 }
