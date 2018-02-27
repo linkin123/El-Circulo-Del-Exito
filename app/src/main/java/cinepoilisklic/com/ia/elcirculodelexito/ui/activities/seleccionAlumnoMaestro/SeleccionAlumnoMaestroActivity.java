@@ -74,6 +74,21 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
         getIdText();
     }
 
+/*    private void consultarMateriasAlumno(int idAlumno) {
+        BaseHelper helper = new BaseHelper( this, "Demo" , null , 1);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String sql = "select idMateria , horasTomadas, horasRestantes , fecha from paquete where idAlumno="+ idAlumno;
+        Cursor c = db.rawQuery( sql , null);
+        if(c.moveToFirst()){
+            do{
+                listMaterias.add( new Materia( c.getLong(0) , utils.getImageMateria(c.getInt(0)) , utils.geMateriaById(c.getInt(0)) , Integer.parseInt(c.getString(2)) , c.getString(3)) );
+            }while( c.moveToNext());
+        }
+        db.close();
+
+    }*/
+
+
     private void getIdText() {
         btnBuscarAlumno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,14 +98,17 @@ public class SeleccionAlumnoMaestroActivity extends AppCompatActivity implements
                     /*buscar persona en bdd*/
                     BaseHelper helper = new BaseHelper(getApplicationContext(), "Demo" , null , 1);
                     SQLiteDatabase db = helper.getReadableDatabase();
-                    String sql = "select id ,  idMateria , horasTomadas , horasRestantes from paquete where idAlumno="+etId.getText().toString();
+                    String sql = "select id ,  idMateria , horasTomadas , horasRestantes , fecha from paquete where idAlumno="+etId.getText().toString();
                     Cursor c = db.rawQuery( sql , null);
                     if(c.moveToFirst()){
                         do{
+                            listMaterias.add( new Materia(c.getInt(1) , utils.getImageMateria(c.getInt(1)) , utils.geMateriaById(1) , c.getInt(3) , c.getString(4) ));
                             System.out.println(" id : "+ c.getInt(0) + " idMateria : " + c.getInt(1) + " -horasTomadas : "+ c.getInt(2) + " horasRestantes : "+ c.getInt(3) );
 /*                            listMaterias.add( new Alumno( c.getInt(0) , c.getString(1) , c.getString(2) , c.getString(3) ) );*/
                         }while( c.moveToNext());
                     }
+
+//                    consultarMateriasAlumno();
                     db.close();
 
                 }
